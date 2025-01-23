@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "Client.h"
 
-#include <Engine/Test.h>
+//#include <Engine/Test.h>
 
 // Debug, Release 모드의 라이브러리 참조 분기
 #ifdef _DEBUG
@@ -19,7 +19,6 @@ HINSTANCE hInst;            // 현재 인스턴스입니다.
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
-BOOL                InitInstance(HINSTANCE, int);
 LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
@@ -28,7 +27,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
-    int value = Add(10, 20);
 
     // 전역 문자열을 초기화합니다.
     MyRegisterClass(hInstance);
