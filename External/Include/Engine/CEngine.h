@@ -7,8 +7,11 @@ class CEngine
 {
 private:
 	static CEngine* g_This;
-	HWND	m_hMainHwnd;
-	POINT	m_Resolution;
+	HWND	MainHwnd;
+	POINT	Resolution;
+
+public:
+	int init(HWND _hWnd, POINT _Resloution);
 
 public:
 	static CEngine* GetInst()

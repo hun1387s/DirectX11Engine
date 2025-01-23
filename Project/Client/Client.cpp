@@ -23,9 +23,9 @@ LRESULT CALLBACK    WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK    About(HWND, UINT, WPARAM, LPARAM);
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+    _In_opt_ HINSTANCE hPrevInstance,
+    _In_ LPWSTR    lpCmdLine,
+    _In_ int       nCmdShow)
 {
 
     // 전역 문자열을 초기화합니다.
@@ -39,7 +39,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
     // 윈도우가 제대로 생성 안될시 프로그램 종료
-    if (!hWnd) 
+    if (!hWnd)
     {
         return FALSE;
     }
@@ -49,7 +49,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
 
     // CEngine 객체 초기화
-    CEngine* pEngine = CEngine::GetInst();
+    if (FAILED(CEngine::GetInst()->init(hWnd, POINT{1280, 768})))
+    {
+        MessageBox(nullptr, L"엔진 초기화 실패", L"엔진 초기화 실패", MB_OK);
+        return 0;
+    }
 
 
 
@@ -110,7 +114,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
     wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_CLIENT));
     wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_CLIENT);
+    wcex.lpszMenuName = nullptr; //MAKEINTRESOURCEW(IDC_CLIENT);
     wcex.lpszClassName  = L"Test";
     wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
