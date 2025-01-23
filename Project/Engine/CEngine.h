@@ -2,35 +2,23 @@
 
 
 // Singleton패턴으로 생성
+// 데이터영역 싱글톤
 class CEngine
 {
 private:
 	static CEngine* g_This;
-
-	//HWND	m_hMainWnd;
+	HWND	m_hMainHwnd;
+	POINT	m_Resolution;
 
 public:
-	//정적 맴버함수 : 객체가 없어도 호출가능
 	static CEngine* GetInst()
 	{
-		if (nullptr == g_This)
-		{
-			g_This = new CEngine;
-		}
-		
-		return g_This;
-	}
-
-	static void Destroy()
-	{
-		if (nullptr == g_This)
-		{
-			delete g_This;
-			g_This = nullptr;
-		}
+		static CEngine mgr;
+		return &mgr;
 	}
 
 private:
 	CEngine();
+	CEngine(const CEngine& _origin) = delete;
+	~CEngine();
 };
-

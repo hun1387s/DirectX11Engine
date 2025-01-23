@@ -7,3 +7,7 @@ CEngine* CEngine::g_This = nullptr;
 CEngine::CEngine()
 {
 }
+
+CEngine::~CEngine()
+{
+}
