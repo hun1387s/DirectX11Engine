@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "Client.h"
 
-//#include <Engine/Test.h>
+#include <Engine/CEngine.h>
 
 // Debug, Release 모드의 라이브러리 참조 분기
 #ifdef _DEBUG
@@ -46,6 +46,12 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     ShowWindow(hWnd, true); // nCmdShow);
     UpdateWindow(hWnd);
+
+
+    // CEngine 객체 초기화
+    CEngine* pEngine = CEngine::GetInst();
+
+
 
     // 단축키 테이블
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
