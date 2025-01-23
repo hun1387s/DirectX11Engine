@@ -4,6 +4,16 @@
 #include "framework.h"
 #include "Client.h"
 
+#include <Engine/Test.h>
+
+// Debug, Release 모드의 라이브러리 참조 분기
+#ifdef _DEBUG
+#pragma comment(lib, "Engine//Engine_d.lib")
+#else
+#pragma comment(lib, "Engine//Engine.lib")
+#endif
+
+
 // 전역 변수:
 HINSTANCE hInst;            // 현재 인스턴스입니다.
 
@@ -18,6 +28,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
 {
+    int value = Add(10, 20);
+
     // 전역 문자열을 초기화합니다.
     MyRegisterClass(hInstance);
 
@@ -65,7 +77,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         else
         {
             // 메세지가 없을때
-            // Game코드 실행
+            // Game Engine 실행
+
         }
 
 
