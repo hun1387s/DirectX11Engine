@@ -4,17 +4,8 @@
 #include "framework.h"
 #include "Client.h"
 
-#include <Engine/Test.h>
-
-#ifdef _DEBUG
-#pragma comment(lib, "Engine//Engine_d.lib")
-#else
-#pragma comment(lib, "Engine//Engine.lib")
-#endif
-
-
 // 전역 변수:
-HINSTANCE hInst;
+HINSTANCE hInst;            // 현재 인스턴스입니다.
 
 // 이 코드 모듈에 포함된 함수의 선언을 전달합니다:
 ATOM                MyRegisterClass(HINSTANCE hInstance);
@@ -26,9 +17,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
                      _In_ LPWSTR    lpCmdLine,
                      _In_ int       nCmdShow)
-{   
-    int value = Add(10, 20);
-
+{
+    // 전역 문자열을 초기화합니다.
     MyRegisterClass(hInstance);
 
     hInst = hInstance; // 인스턴스 핸들을 전역 변수에 저장합니다.
@@ -36,28 +26,36 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     // 커널 오브젝트
     // 윈도우 생성 후 핸들값 반환
     HWND hWnd = CreateWindowW(L"Test", L"MyGame", WS_OVERLAPPEDWINDOW,
-                              CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-    // 윈도우 생성에 문제가 있으면 프로그램 종료
-    if (!hWnd)
+    // 윈도우가 제대로 생성 안될시 프로그램 종료
+    if (!hWnd) 
     {
         return FALSE;
     }
 
-    ShowWindow(hWnd, true);
+    ShowWindow(hWnd, true); // nCmdShow);
     UpdateWindow(hWnd);
-      
+
     // 단축키 테이블
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
+
     MSG msg;
-        
+
+    // 기본 메시지 루프입니다:
+    // 반응형 프로그램
+    // 윈도우 메세지가 없으면 반환되지 않음
+    // Getessage(&msg, nullptr, 0, 0)
     while (true)
     {
+        // 메세지가 없더라도 반환한다.
         if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE))
         {
             if (WM_QUIT == msg.message)
                 break;
 
+            // 메세지가 있을때
+            // 메세지 관련 작업 실행
             if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
             {
                 TranslateMessage(&msg);
@@ -66,15 +64,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
         else
         {
-            // Game Engine 실행
+            // 메세지가 없을때
+            // Game코드 실행
+        }
 
-        }        
+
     }
 
     return (int) msg.wParam;
 }
-
-
 
 //
 //  함수: MyRegisterClass()
@@ -101,7 +99,6 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     return RegisterClassExW(&wcex);
 }
-
 
 //
 //  함수: WndProc(HWND, UINT, WPARAM, LPARAM)
