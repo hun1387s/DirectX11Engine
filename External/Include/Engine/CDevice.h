@@ -28,6 +28,10 @@ public:
 	int init(HWND _hwnd, POINT _Resolution);
 
 private:
+	int CreateSwapChain();
+	int CreateView();
+
+private:
 	CDevice();
 	CDevice(const CDevice& _other) = delete;
 
