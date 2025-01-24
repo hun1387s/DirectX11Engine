@@ -86,7 +86,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         {
             // 메세지가 없을때
             // Game Engine 실행
-
+            CEngine::GetInst()->progress(); // 한번 수행 == 1 프레임
         }
 
 

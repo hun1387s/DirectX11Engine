@@ -78,6 +78,11 @@ int CDevice::init(HWND _hwnd, POINT _Resolution)
 	return S_OK;
 }
 
+void CDevice::ClearTarget(float(&ArrColor)[4])
+{
+	Context->ClearRenderTargetView(RenderTargetView.Get(), ArrColor);
+}
+
 
 int CDevice::CreateSwapChain()
 {
