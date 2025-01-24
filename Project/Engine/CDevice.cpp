@@ -5,26 +5,11 @@
 CDevice::CDevice()
 	: MainWnd(nullptr)
 	, RenderResolution{}
-	, Device(nullptr)
-	, Context(nullptr)
-	, SwapChain(nullptr)
-	, RenderTargetTex(nullptr)
-	, RenderTargetView(nullptr)
-	, DepthStencilTex(nullptr)
-	, DepthStencilView(nullptr)
 {
 }
 
 CDevice::~CDevice()
 {
-	Device->Release();
-	Context->Release();
-	SwapChain->Release();
-
-	RenderTargetTex->Release();
-	RenderTargetView->Release();
-	DepthStencilTex->Release();
-	DepthStencilView->Release();
 }
 
 
@@ -37,9 +22,10 @@ int CDevice::init(HWND _hwnd, POINT _Resolution)
 #ifdef _DEBUG
 	flag = D3D11_CREATE_DEVICE_DEBUG;	// 디버그 모드로 디바이스 생성
 #endif
+
 	D3D_FEATURE_LEVEL level = D3D_FEATURE_LEVEL_11_0;		// 시용할 D3D 기능 레벨지정
 
-	D3D11CreateDevice(
+	if (FAILED(D3D11CreateDevice(
 		nullptr,					// 기본 어댑터
 		D3D_DRIVER_TYPE_HARDWARE,	// 하드웨어 가속
 		nullptr,					// 소프트웨어 드라이버 사용 안함
@@ -47,9 +33,14 @@ int CDevice::init(HWND _hwnd, POINT _Resolution)
 		nullptr,					// 기능 레벨 배열 없음
 		0,							// 배열 갯수
 		D3D11_SDK_VERSION,			// SDK 버전
-		&Device,					// 생성된 디바이스
+		Device.GetAddressOf(),		// 생성된 디바이스
 		&level,						// 실제 생성된 기능 레벨
-		&Context);					// 생성된 컨텍스트
+		Context.GetAddressOf())))	// 생성된 컨텍스트
+	{
+		// 실패시 종료
+		MessageBox(nullptr, L"Device 생성 실패", L"Device 생성 실패", MB_OK);
+		return E_FAIL;
+	}
 
 	// SwapChain 생성
 	if (FAILED(CreateSwapChain()))
@@ -108,39 +99,34 @@ int CDevice::CreateSwapChain()
 	Desc.SwapEffect = DXGI_SWAP_EFFECT_DISCARD;
 
 	// DXGI 인터페이스 획득
-	IDXGIDevice* DXGIDevice = nullptr;
-	IDXGIAdapter* Adatper = nullptr;
-	IDXGIFactory* Factory = nullptr;
+	ComPtr<IDXGIDevice> DXGIDevice = nullptr;
+	ComPtr<IDXGIAdapter> Adatper = nullptr;
+	ComPtr<IDXGIFactory> Factory = nullptr;
 
 	// Device에서 DXGIDevice 인터페이스 획득
-	Device->QueryInterface(__uuidof(IDXGIDevice), (void**)&DXGIDevice);
+	Device->QueryInterface(__uuidof(IDXGIDevice), (void**)DXGIDevice.GetAddressOf());
 	// DXGIDevice에서 상위 Adapter 인터페이스 획득
-	DXGIDevice->GetParent(__uuidof(IDXGIAdapter), (void**)&Adatper);
+	DXGIDevice->GetParent(__uuidof(IDXGIAdapter), (void**)Adatper.GetAddressOf());
 	// Adepter에서 상위 Factory 인터페이스 획득
-	Adatper->GetParent(__uuidof(IDXGIFactory), (void**)&Factory);
+	Adatper->GetParent(__uuidof(IDXGIFactory), (void**)Factory.GetAddressOf());
 
 	// SwapChain 생성 시도
-	if (FAILED(Factory->CreateSwapChain(Device, &Desc, &SwapChain)))
+	if (FAILED(Factory->CreateSwapChain(Device.Get(), &Desc, SwapChain.GetAddressOf())))
 	{
 		// 실패 시 반환
 		return	E_FAIL;
 	}
 
-	// 인터페이스 해제
-	DXGIDevice->Release();
-	Adatper->Release();
-	Factory->Release();
-	
 	return S_OK;
 }
 
 int CDevice::CreateView()
 {
 	// 1. RenderTarget Texture를 SwapChain으로부터 가져오기
-	SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)&RenderTargetTex);
+	SwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (void**)RenderTargetTex.GetAddressOf());
 
 	// 2. RenderTargetView를 생성한다.
-	Device->CreateRenderTargetView(RenderTargetTex, nullptr, &RenderTargetView);
+	Device->CreateRenderTargetView(RenderTargetTex.Get(), nullptr, RenderTargetView.GetAddressOf());
 
 	// 3. DepthStencil용 Texture 제작
 	D3D11_TEXTURE2D_DESC Desc = {};
@@ -159,13 +145,13 @@ int CDevice::CreateView()
 	// 텍스쳐 용도설정(깊이를 저장하는 전용 명시)
 	Desc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
 
-	Device->CreateTexture2D(&Desc, nullptr, &DepthStencilTex);
+	Device->CreateTexture2D(&Desc, nullptr, DepthStencilTex.GetAddressOf());
 
 	// 4. DepthStencil View
-	Device->CreateDepthStencilView(DepthStencilTex, nullptr, &DepthStencilView);
+	Device->CreateDepthStencilView(DepthStencilTex.Get(), nullptr, DepthStencilView.GetAddressOf());
 
 	// RenderTarget과 DepthStencilTarget을 출력으로 지정.
-	Context->OMSetRenderTargets(1, &RenderTargetView, DepthStencilView);
+	Context->OMSetRenderTargets(1, RenderTargetView.GetAddressOf(), DepthStencilView.Get());
 
 
 

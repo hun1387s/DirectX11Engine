@@ -4,19 +4,22 @@
 class CDevice
 {
 private:
-	HWND					MainWnd;
-	POINT					RenderResolution;
+	HWND							MainWnd;
+	POINT							RenderResolution;
 
-	ID3D11Device*			Device;				// GPU 메모리할당, DX11 관련 객체생성
-	ID3D11DeviceContext*	Context;			// GPU 렌더링 관련 명령
+	
+	ComPtr<ID3D11Device>			Device;				// GPU 메모리할당, DX11 관련 객체생성
+	ComPtr<ID3D11DeviceContext>		Context;			// GPU 렌더링 관련 명령
+	ComPtr<IDXGISwapChain>			SwapChain;			// 렌더타겟 버퍼 소유, 화면에 최종 장면을 게시
 
-	IDXGISwapChain*			SwapChain;			// 렌더타겟 버퍼 소유, 화면에 최종 장면을 게시
+	ComPtr<ID3D11Texture2D>			RenderTargetTex;
+	ComPtr<ID3D11RenderTargetView>	RenderTargetView;
+	ComPtr<ID3D11Texture2D>			DepthStencilTex;
+	ComPtr<ID3D11DepthStencilView>	DepthStencilView;
 
-	ID3D11Texture2D*		RenderTargetTex;
-	ID3D11RenderTargetView* RenderTargetView;
-
-	ID3D11Texture2D*		DepthStencilTex;
-	ID3D11DepthStencilView* DepthStencilView;
+private:
+	int CreateSwapChain();
+	int CreateView();
 
 public:
 	static CDevice* GetInst()
@@ -27,9 +30,7 @@ public:
 public:
 	int init(HWND _hwnd, POINT _Resolution);
 
-private:
-	int CreateSwapChain();
-	int CreateView();
+
 
 private:
 	CDevice();
