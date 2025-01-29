@@ -17,6 +17,9 @@
     <Filter Include="03. Device">
       <UniqueIdentifier>{241b1086-4627-4189-81b2-6f0779c7ac70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Module">
+      <UniqueIdentifier>{becf836a-b653-40a7-9769-9bd44dc1ca4d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -35,6 +38,9 @@
       <Filter>03. Device</Filter>
     </ClInclude>
     <ClInclude Include="Temp.h" />
+    <ClInclude Include="SimpleMath.h">
+      <Filter>Module</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -50,5 +56,10 @@
       <Filter>03. Device</Filter>
     </ClCompile>
     <ClCompile Include="Temp.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl">
+      <Filter>Module</Filter>
+    </None>
   </ItemGroup>
 </Project>
