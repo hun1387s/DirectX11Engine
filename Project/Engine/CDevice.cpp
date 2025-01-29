@@ -106,7 +106,7 @@ int CDevice::CreateSwapChain()
 	Desc.BufferDesc.Scaling = DXGI_MODE_SCALING_UNSPECIFIED;	// 스케일링 없음
 	Desc.BufferDesc.ScanlineOrdering = DXGI_MODE_SCANLINE_ORDER_UNSPECIFIED;	// 스캔 라인 순서 없음
 
-	// 멀치 샘플링 설정
+	// 멀티 샘플링 설정
 	Desc.SampleDesc.Count = 1;		// 샘플 갯수
 	Desc.SampleDesc.Quality = 0;	// 샘플 품질
 

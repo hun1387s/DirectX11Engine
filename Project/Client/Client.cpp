@@ -35,7 +35,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
     // 커널 오브젝트
     // 윈도우 생성 후 핸들값 반환
-    HWND hWnd = CreateWindowW(L"Test", L"MyGame", WS_OVERLAPPEDWINDOW,
+    HWND hWnd = CreateWindowW(L"Test", L"Game", WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
     // 윈도우가 제대로 생성 안될시 프로그램 종료
@@ -44,7 +44,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         return FALSE;
     }
 
-    ShowWindow(hWnd, true); // nCmdShow);
+    ShowWindow(hWnd, true);
     UpdateWindow(hWnd);
 
 
