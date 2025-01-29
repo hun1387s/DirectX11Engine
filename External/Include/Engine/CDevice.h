@@ -32,6 +32,8 @@ public:
 	void ClearTarget(float(&ArrColor)[4]);
 	void Present() { SwapChain->Present(0, 0); }
 
+	ID3D11Device* GetDevice() { return Device.Get(); }
+	ID3D11DeviceContext* GetContext() { return Context.Get(); }
 
 private:
 	CDevice();
