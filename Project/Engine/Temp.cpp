@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "Temp.h"
+
 #include "CDevice.h"
+#include "CTimeMgr.h"
+#include "CKeyMgr.h"
 
 // Graphics Pipeline
 
@@ -199,32 +202,34 @@ void TempReleas()
 
 void TempTick()
 {
-	if (GetAsyncKeyState('W') & 0x8001)
+	float DT = CTimeMgr::GetInst()->GetDeltaTime();
+
+	if (KEY_PRESSED(KEY::W))
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			VtxArr[i].vPos.y += 0.0001f;
+			VtxArr[i].vPos.y += 1.f * DT;
 		}
 	}
-	if (GetAsyncKeyState('S') & 0x8001)
+	if (KEY_PRESSED(KEY::S))
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			VtxArr[i].vPos.y -= 0.0001f;
+			VtxArr[i].vPos.y -= 1.f * DT;
 		}
 	}
-	if (GetAsyncKeyState('A') & 0x8001)
+	if (KEY_PRESSED(KEY::A))
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			VtxArr[i].vPos.x -= 0.0001f;
+			VtxArr[i].vPos.x -= 1.f * DT;
 		}
 	}
-	if (GetAsyncKeyState('D') & 0x8001)
+	if (KEY_PRESSED(KEY::D))
 	{
 		for (int i = 0; i < 3; ++i)
 		{
-			VtxArr[i].vPos.x += 0.0001f;
+			VtxArr[i].vPos.x += 1.f * DT;
 		}
 	}
 
