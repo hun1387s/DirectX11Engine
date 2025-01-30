@@ -1,8 +1,6 @@
 #pragma once
 
 
-// Singleton패턴으로 생성
-// 데이터영역 싱글톤
 class CEngine
 	: public CSingleton<CEngine>
 {
@@ -12,6 +10,7 @@ private:
 	POINT	Resolution;
 
 public:
+	HWND GetMainWnd() { return MainHwnd; }
 	int init(HWND _hWnd, POINT _Resloution);
 
 	void progress();

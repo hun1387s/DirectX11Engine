@@ -2,7 +2,9 @@
 
 
 class CDevice
+	: public CSingleton<CDevice>
 {
+	SINGLE(CDevice);
 private:
 	HWND							MainWnd;
 	POINT							RenderResolution;
@@ -22,24 +24,11 @@ private:
 	int CreateView();
 
 public:
-	static CDevice* GetInst()
-	{
-		static CDevice mgr;
-		return &mgr;
-	}
-public:
 	int init(HWND _hwnd, POINT _Resolution);
 	void ClearTarget(float(&ArrColor)[4]);
 	void Present() { SwapChain->Present(0, 0); }
 
 	ID3D11Device* GetDevice() { return Device.Get(); }
 	ID3D11DeviceContext* GetContext() { return Context.Get(); }
-
-private:
-	CDevice();
-	CDevice(const CDevice& _other) = delete;
-
-public:
-	~CDevice();
 };
 

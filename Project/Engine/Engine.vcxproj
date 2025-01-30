@@ -171,9 +171,12 @@ call copy.bat</Command>
   <ItemGroup>
     <ClInclude Include="CDevice.h" />
     <ClInclude Include="CEngine.h" />
+    <ClInclude Include="CPathMgr.h" />
+    <ClInclude Include="CTimeMgr.h" />
     <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="global.h" />
+    <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
@@ -183,7 +186,10 @@ call copy.bat</Command>
   <ItemGroup>
     <ClCompile Include="CDevice.cpp" />
     <ClCompile Include="CEngine.cpp" />
+    <ClCompile Include="CPathMgr.cpp" />
+    <ClCompile Include="CTimeMgr.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="CKeyMgr.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

@@ -1,6 +1,10 @@
 #include "pch.h"
 #include "CEngine.h"
+
 #include "CDevice.h"
+#include "CTimeMgr.h"
+#include "CPathMgr.h"
+#include "CKeyMgr.h"
 
 #include "Temp.h"
 
@@ -36,6 +40,9 @@ int CEngine::init(HWND _hWnd, POINT _Resloution)
 		return E_FAIL;
 	}
 
+	// Manager Init
+	CTimeMgr::GetInst()->init();
+
 	if (FAILED(TempInit()))
 	{
 		MessageBox(nullptr, L"TempInit 초기화 실패", L"VertexBuffer 생성 실패", MB_OK);
@@ -47,15 +54,25 @@ int CEngine::init(HWND _hWnd, POINT _Resloution)
 
 void CEngine::progress()
 {
-	// Level->tick();
-	TempTick();
+	// ============
+	// Manager tick
+	// ============
+	CTimeMgr::GetInst()->tick();
 	
+	// Object tick
+	TempTick();
+
+
+	// =========
+	// Rengering
+	// =========
+	// Target Clear
 	float ClearColor[4] = { 0.4f, 0.7f, 0.7f, 1.f };
 	CDevice::GetInst()->ClearTarget(ClearColor);
 
 	
 
-	// Level->render();
+	// Object Render
 	TempRender();
 	
 	// SwapChain->Present();
