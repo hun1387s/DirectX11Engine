@@ -41,6 +41,7 @@ int CEngine::init(HWND _hWnd, POINT _Resloution)
 	}
 
 	// Manager Init
+	CPathMgr::GetInst()->init();
 	CTimeMgr::GetInst()->init();
 	CKeyMgr::GetInst()->init();
 

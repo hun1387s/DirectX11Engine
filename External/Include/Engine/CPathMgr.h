@@ -5,8 +5,9 @@ class CPathMgr :
 {
     SINGLE(CPathMgr);
 private:
-
+    wchar_t     ContentPath[255];
 public:
-
+    void init();
+    const wchar_t* GetContentPath() { return ContentPath; }
 };
 

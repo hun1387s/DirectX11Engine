@@ -4,6 +4,7 @@
 #include "CDevice.h"
 #include "CTimeMgr.h"
 #include "CKeyMgr.h"
+#include "CPathMgr.h"
 
 // Graphics Pipeline
 
@@ -81,7 +82,7 @@ int TempInit()
 	VtxArr[3].vPos = Vector3(-.5f, -.5f, 0.f);
 
 	VtxArr[0].vColor = Vector4(1.f, 0.f, 0.f, 1.f);
-	VtxArr[4].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
+	VtxArr[1].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
 	VtxArr[2].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
 	VtxArr[3].vColor = Vector4(0.f, 0.f, 1.f, 1.f);
 
@@ -121,22 +122,10 @@ int TempInit()
 	}
 
 	// Vertex Shader
-	wchar_t shaderPath[255] = {};
-	GetCurrentDirectory(255, shaderPath);
+	wstring strPath = CPathMgr::GetInst()->GetContentPath();
+	strPath += L"shader\\std2d.fx";
 
-	size_t len = wcslen(shaderPath);
-
-	for (size_t i = len - 1; i > 0; i--)
-	{
-		if (shaderPath[i] == '\\')
-		{
-			shaderPath[i] = '\0';
-			break;
-		}
-	}
-
-	wcscat_s(shaderPath, L"\\contents\\shader\\std2d.fx");
-	if (FAILED(D3DCompileFromFile(shaderPath, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+	if (FAILED(D3DCompileFromFile(strPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, "VS_Std2D", "vs_5_0", D3DCOMPILE_DEBUG, 0
 		, VS_Blob.GetAddressOf(), Err_Blob.GetAddressOf())))
 	{
@@ -188,7 +177,7 @@ int TempInit()
 	}
 
 	// Pixel Shader
-	if (FAILED(D3DCompileFromFile(shaderPath, nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
+	if (FAILED(D3DCompileFromFile(strPath.c_str(), nullptr, D3D_COMPILE_STANDARD_FILE_INCLUDE
 		, "PS_Std2D", "ps_5_0", D3DCOMPILE_DEBUG, 0
 		, PS_Blob.GetAddressOf(), Err_Blob.GetAddressOf())))
 	{
