@@ -81,6 +81,7 @@ int CDevice::init(HWND _hwnd, POINT _Resolution)
 void CDevice::ClearTarget(float(&ArrColor)[4])
 {
 	Context->ClearRenderTargetView(RenderTargetView.Get(), ArrColor);
+	Context->ClearDepthStencilView(DepthStencilView.Get(), D3D11_CLEAR_DEPTH | D3D10_CLEAR_STENCIL, 1.f, 0);
 }
 
 
