@@ -57,11 +57,17 @@ ComPtr<ID3D11Buffer> VertexBuffer;
 // 정점 인덱스를 저장하는 버퍼
 ComPtr<ID3D11Buffer> IndexBuffer;
 
+// 상수버퍼(ConstantBuffer): 물체의 위치, 크기, 회전 (transform)
+ComPtr<ID3D11Buffer> ConstantBuffer;
+
 // 정점 하나를 구성하는 Layout 정보
 ComPtr<ID3D11InputLayout> Layout;
 
 // System Mem 정점 정보
 Vertex VtxArr[4] = {};
+
+// 물체의 위치값
+Vector3 ObjectPos;
 
 // Vertex Shader
 ComPtr<ID3DBlob>			VS_Blob;	// 컴파일한 쉐이더 코드를 저장
@@ -83,8 +89,8 @@ int TempInit()
 
 	VtxArr[0].vColor = Vector4(1.f, 0.f, 0.f, 1.f);
 	VtxArr[1].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
-	VtxArr[2].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
-	VtxArr[3].vColor = Vector4(0.f, 0.f, 1.f, 1.f);
+	VtxArr[2].vColor = Vector4(0.f, 0.f, 1.f, 1.f);
+	VtxArr[3].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
 
 	// 정점 버퍼 생성
 	D3D11_BUFFER_DESC VertexBufferDesc = {};
@@ -120,6 +126,24 @@ int TempInit()
 	{
 		return E_FAIL;
 	}
+
+	// ConstantBuffer
+	D3D11_BUFFER_DESC ConstantBufferDesc = {};
+	ConstantBufferDesc.ByteWidth = sizeof(Transform);
+	ConstantBufferDesc.MiscFlags = 0;
+
+	ConstantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER; // 만들어질때 용도(Constant) 지정
+	ConstantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
+	ConstantBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+
+	SubDesc = {};
+	SubDesc.pSysMem = arrIdx;
+
+	if (FAILED(_DEVICE->CreateBuffer(&ConstantBufferDesc, nullptr, ConstantBuffer.GetAddressOf())))
+	{
+		return E_FAIL;
+	}
+
 
 	// Vertex Shader
 	wstring strPath = CPathMgr::GetInst()->GetContentPath();
@@ -203,6 +227,8 @@ int TempInit()
 		return E_FAIL;
 	}
 
+	ObjectPos = Vector3(0.f, 0.f, 0.f);
+
 
 	return S_OK;
 }
@@ -217,39 +243,31 @@ void TempTick()
 
 	if (KEY_PRESSED(KEY::W))
 	{
-		for (int i = 0; i < 4; ++i)
-		{
-			VtxArr[i].vPos.y += 1.f * DT;
-		}
+		ObjectPos.y += 1.f * DT;
 	}
 	if (KEY_PRESSED(KEY::S))
 	{
-		for (int i = 0; i < 4; ++i)
-		{
-			VtxArr[i].vPos.y -= 1.f * DT;
-		}
+		ObjectPos.y -= 1.f * DT;
 	}
 	if (KEY_PRESSED(KEY::A))
 	{
-		for (int i = 0; i < 4; ++i)
-		{
-			VtxArr[i].vPos.x -= 1.f * DT;
-		}
+		ObjectPos.x -= 1.f * DT;
 	}
 	if (KEY_PRESSED(KEY::D))
 	{
-		for (int i = 0; i < 4; ++i)
-		{
-			VtxArr[i].vPos.x += 1.f * DT;
-		}
+		ObjectPos.x += 1.f * DT;
 	}
 
 	// SysMem -> GPU
 	D3D11_MAPPED_SUBRESOURCE tSub = {};
-	_CONTEXT->Map(VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);
+	_CONTEXT->Map(ConstantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);
 
-	memcpy(tSub.pData, VtxArr, sizeof(Vertex) * 4);
-	_CONTEXT->Unmap(VertexBuffer.Get(), 0);
+	Transform trans = {};
+	trans.Position = ObjectPos;
+	memcpy(tSub.pData, &trans, sizeof(trans));
+	_CONTEXT->Unmap(ConstantBuffer.Get(), 0);
+
+	_CONTEXT->VSSetConstantBuffers(0, 1, ConstantBuffer.GetAddressOf());
 }
 
 void TempRender()

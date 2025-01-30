@@ -8,3 +8,11 @@ struct Vertex
 	Vector4 vColor;
 	//Vector2 vUV;
 };
+
+
+// ConstantBuffer 관련
+struct Transform
+{
+	Vector4 Position;
+	
+};
