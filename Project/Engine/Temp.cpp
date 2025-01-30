@@ -53,11 +53,14 @@
 // 정점 정보를 저장하는 버퍼
 ComPtr<ID3D11Buffer> VertexBuffer;
 
+// 정점 인덱스를 저장하는 버퍼
+ComPtr<ID3D11Buffer> IndexBuffer;
+
 // 정점 하나를 구성하는 Layout 정보
 ComPtr<ID3D11InputLayout> Layout;
 
 // System Mem 정점 정보
-Vertex VtxArr[3] = {};
+Vertex VtxArr[4] = {};
 
 // Vertex Shader
 ComPtr<ID3DBlob>			VS_Blob;	// 컴파일한 쉐이더 코드를 저장
@@ -72,17 +75,19 @@ ComPtr<ID3DBlob>			Err_Blob;
 
 int TempInit()
 {
-	VtxArr[0].vPos = Vector3(0.f, 1.f, 0.f);
-	VtxArr[1].vPos = Vector3(1.f, -1.f, 0.f);
-	VtxArr[2].vPos = Vector3(-1.f, -1.f, 0.f);
+	VtxArr[0].vPos = Vector3(-.5f,  .5f, 0.f);
+	VtxArr[1].vPos = Vector3( .5f,  .5f, 0.f);
+	VtxArr[2].vPos = Vector3( .5f, -.5f, 0.f);
+	VtxArr[3].vPos = Vector3(-.5f, -.5f, 0.f);
 
 	VtxArr[0].vColor = Vector4(1.f, 0.f, 0.f, 1.f);
-	VtxArr[1].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
-	VtxArr[2].vColor = Vector4(0.f, 0.f, 1.f, 1.f);
+	VtxArr[4].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
+	VtxArr[2].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
+	VtxArr[3].vColor = Vector4(0.f, 0.f, 1.f, 1.f);
 
 	// 정점 버퍼 생성
 	D3D11_BUFFER_DESC VertexBufferDesc = {};
-	VertexBufferDesc.ByteWidth = sizeof(Vertex) * 3;
+	VertexBufferDesc.ByteWidth = sizeof(Vertex) * 4;
 	VertexBufferDesc.MiscFlags = 0;
 
 	VertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER; // 만들어질때 용도(vertex) 지정
@@ -97,8 +102,25 @@ int TempInit()
 		return E_FAIL;
 	}
 
+	// Index Buffer
+	UINT arrIdx[6] = {0, 1, 2, 0, 2, 3};
+	D3D11_BUFFER_DESC IndexBufferDesc = {};
+	IndexBufferDesc.ByteWidth = sizeof(UINT) * 6;
+	IndexBufferDesc.MiscFlags = 0;
+
+	IndexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER; // 만들어질때 용도(index) 지정
+	IndexBufferDesc.CPUAccessFlags = 0; 
+	IndexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
+
+	SubDesc = {};
+	SubDesc.pSysMem = arrIdx;
+
+	if (FAILED(_DEVICE->CreateBuffer(&IndexBufferDesc, &SubDesc, IndexBuffer.GetAddressOf())))
+	{
+		return E_FAIL;
+	}
+
 	// Vertex Shader
-	//
 	wchar_t shaderPath[255] = {};
 	GetCurrentDirectory(255, shaderPath);
 
@@ -206,28 +228,28 @@ void TempTick()
 
 	if (KEY_PRESSED(KEY::W))
 	{
-		for (int i = 0; i < 3; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			VtxArr[i].vPos.y += 1.f * DT;
 		}
 	}
 	if (KEY_PRESSED(KEY::S))
 	{
-		for (int i = 0; i < 3; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			VtxArr[i].vPos.y -= 1.f * DT;
 		}
 	}
 	if (KEY_PRESSED(KEY::A))
 	{
-		for (int i = 0; i < 3; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			VtxArr[i].vPos.x -= 1.f * DT;
 		}
 	}
 	if (KEY_PRESSED(KEY::D))
 	{
-		for (int i = 0; i < 3; ++i)
+		for (int i = 0; i < 4; ++i)
 		{
 			VtxArr[i].vPos.x += 1.f * DT;
 		}
@@ -237,7 +259,7 @@ void TempTick()
 	D3D11_MAPPED_SUBRESOURCE tSub = {};
 	_CONTEXT->Map(VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);
 
-	memcpy(tSub.pData, VtxArr, sizeof(Vertex) * 3);
+	memcpy(tSub.pData, VtxArr, sizeof(Vertex) * 4);
 	_CONTEXT->Unmap(VertexBuffer.Get(), 0);
 }
 
@@ -246,11 +268,13 @@ void TempRender()
 	UINT Stride = sizeof(Vertex);
 	UINT Offset = 0;
 	_CONTEXT->IASetVertexBuffers(0, 1, VertexBuffer.GetAddressOf(), &Stride, &Offset);
+	_CONTEXT->IASetIndexBuffer(IndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
 	_CONTEXT->IASetInputLayout(Layout.Get());
 	_CONTEXT->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	_CONTEXT->VSSetShader(VS.Get(), nullptr, 0);
 	_CONTEXT->PSSetShader(PS.Get(), nullptr, 0);
 
-	_CONTEXT->Draw(3, 0);
+	//_CONTEXT->Draw(6, 0);
+	_CONTEXT->DrawIndexed(6, 0, 0);
 }
