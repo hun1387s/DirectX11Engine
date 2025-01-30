@@ -4,6 +4,7 @@
 // Singleton패턴으로 생성
 // 데이터영역 싱글톤
 class CEngine
+	: public CSingleton<CEngine>
 {
 private:
 	static CEngine* g_This;
@@ -15,15 +16,11 @@ public:
 
 	void progress();
 
-public:
-	static CEngine* GetInst()
-	{
-		static CEngine mgr;
-		return &mgr;
-	}
 
 private:
 	CEngine();
 	CEngine(const CEngine& _origin) = delete;
+public:
 	~CEngine();
+	friend class CSingleton<CEngine>;
 };

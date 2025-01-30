@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "Client.h"
 
+#include <Engine/global.h>
 #include <Engine/CEngine.h>
 
 // Debug, Release 모드의 라이브러리 참조 분기

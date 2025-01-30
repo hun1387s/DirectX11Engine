@@ -101,7 +101,7 @@ int TempInit()
 
 	size_t len = wcslen(shaderPath);
 
-	for (int i = len - 1; i > 0; i--)
+	for (size_t i = len - 1; i > 0; i--)
 	{
 		if (shaderPath[i] == '\\')
 		{
@@ -199,6 +199,41 @@ void TempReleas()
 
 void TempTick()
 {
+	if (GetAsyncKeyState('W') & 0x8001)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			VtxArr[i].vPos.y += 0.0001f;
+		}
+	}
+	if (GetAsyncKeyState('S') & 0x8001)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			VtxArr[i].vPos.y -= 0.0001f;
+		}
+	}
+	if (GetAsyncKeyState('A') & 0x8001)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			VtxArr[i].vPos.x -= 0.0001f;
+		}
+	}
+	if (GetAsyncKeyState('D') & 0x8001)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			VtxArr[i].vPos.x += 0.0001f;
+		}
+	}
+
+	// SysMem -> GPU
+	D3D11_MAPPED_SUBRESOURCE tSub = {};
+	_CONTEXT->Map(VertexBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);
+
+	memcpy(tSub.pData, VtxArr, sizeof(Vertex) * 3);
+	_CONTEXT->Unmap(VertexBuffer.Get(), 0);
 }
 
 void TempRender()
