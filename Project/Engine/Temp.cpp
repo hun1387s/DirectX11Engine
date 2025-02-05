@@ -90,7 +90,7 @@ int TempInit()
 	VtxArr[0].vColor = Vector4(1.f, 0.f, 0.f, 1.f);
 	VtxArr[1].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
 	VtxArr[2].vColor = Vector4(0.f, 0.f, 1.f, 1.f);
-	VtxArr[3].vColor = Vector4(0.f, 1.f, 0.f, 1.f);
+	VtxArr[3].vColor = Vector4(1.f, 1.f, 1.f, 1.f);
 
 	// 정점 버퍼 생성
 	D3D11_BUFFER_DESC VertexBufferDesc = {};
@@ -184,7 +184,9 @@ int TempInit()
 	LayoutDesc[0].SemanticIndex = 0;
 	LayoutDesc[0].SemanticName = "POSITION";
 
-	LayoutDesc[1].AlignedByteOffset = 12;
+	//LayoutDesc[1].AlignedByteOffset = 12;
+	LayoutDesc[1].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
+
 	LayoutDesc[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 	LayoutDesc[1].InputSlot = 0;
 	LayoutDesc[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
