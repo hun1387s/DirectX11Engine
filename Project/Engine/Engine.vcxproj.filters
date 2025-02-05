@@ -26,6 +26,48 @@
     <Filter Include="HLSL\2D">
       <UniqueIdentifier>{d0f3c905-9dd5-4a0e-875b-896effcc43ba}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager">
+      <UniqueIdentifier>{e97a8a8a-5187-4466-b659-da829d76363a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\01. TimeMgr">
+      <UniqueIdentifier>{c5477245-416e-46d2-87c5-c857cd47be06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\02. PathMgr">
+      <UniqueIdentifier>{9bd5cef4-9461-428d-b4f0-5fd239585aaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\03. KeyMgr">
+      <UniqueIdentifier>{75b2f28a-3573-46c5-b60d-44e9be096a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05. GameObject">
+      <UniqueIdentifier>{7a87d8a3-fbe2-4061-b051-ca52d66f5fac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component">
+      <UniqueIdentifier>{a9bd9e0b-b35d-4d30-8a66-b1b88c4f37f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Asset">
+      <UniqueIdentifier>{8e49aef0-e36a-4133-9f21-38dbfab67069}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Asset\Mesh">
+      <UniqueIdentifier>{c2d74c01-0917-4159-9362-7823d7d86d01}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Asset\Texture">
+      <UniqueIdentifier>{55d83d8b-7726-4bc4-8b56-ae4a035d77a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Asset\Sound">
+      <UniqueIdentifier>{07dddaf2-864a-4213-8d12-bd0f6a3330a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Asset\Material">
+      <UniqueIdentifier>{07f5fb44-42e2-4b6a-a960-f6e8a18d7e47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Asset\MeshData">
+      <UniqueIdentifier>{6f60cfdc-5f67-403f-bf5a-bbb27b5075c6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Asset\Prefab">
+      <UniqueIdentifier>{c03cfb06-cbc0-46c4-86c3-3652f5110c75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="07. Asset\Shader">
+      <UniqueIdentifier>{b27a1108-e75f-416e-aa44-560df4b2faa7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -53,6 +95,34 @@
     <ClInclude Include="struct.h">
       <Filter>01. Header</Filter>
     </ClInclude>
+    <ClInclude Include="CKeyMgr.h">
+      <Filter>04. Manager\03. KeyMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CPathMgr.h">
+      <Filter>04. Manager\02. PathMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimeMgr.h">
+      <Filter>04. Manager\01. TimeMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CEntity.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="singleton.h">
+      <Filter>Module</Filter>
+    </ClInclude>
+    <ClInclude Include="CAsset.h">
+      <Filter>07. Asset</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameObject.h">
+      <Filter>05. GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="CComponent.h">
+      <Filter>06. Component</Filter>
+    </ClInclude>
+    <ClInclude Include="CMesh.h" />
+    <ClInclude Include="enum.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -68,6 +138,28 @@
       <Filter>03. Device</Filter>
     </ClCompile>
     <ClCompile Include="Temp.cpp" />
+    <ClCompile Include="CKeyMgr.cpp">
+      <Filter>04. Manager\03. KeyMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CPathMgr.cpp">
+      <Filter>04. Manager\02. PathMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimeMgr.cpp">
+      <Filter>04. Manager\01. TimeMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CEntity.cpp">
+      <Filter>Module</Filter>
+    </ClCompile>
+    <ClCompile Include="CAsset.cpp">
+      <Filter>07. Asset</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameObject.cpp">
+      <Filter>05. GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="CComponent.cpp">
+      <Filter>06. Component</Filter>
+    </ClCompile>
+    <ClCompile Include="CMesh.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">
