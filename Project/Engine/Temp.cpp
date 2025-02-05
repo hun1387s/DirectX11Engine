@@ -6,6 +6,8 @@
 #include "CKeyMgr.h"
 #include "CPathMgr.h"
 
+#include "CMesh.h"
+
 // Graphics Pipeline
 
 //=====================
@@ -51,11 +53,8 @@
 //
 
 
-// 정점 정보를 저장하는 버퍼
-ComPtr<ID3D11Buffer> VertexBuffer;
-
-// 정점 인덱스를 저장하는 버퍼
-ComPtr<ID3D11Buffer> IndexBuffer;
+CMesh* RectMesh = nullptr;
+CMesh* CircleMesh = nullptr;
 
 // 상수버퍼(ConstantBuffer): 물체의 위치, 크기, 회전 (transform)
 ComPtr<ID3D11Buffer> ConstantBuffer;
@@ -82,6 +81,7 @@ ComPtr<ID3DBlob>			Err_Blob;
 
 int TempInit()
 {
+	// 사각형 그리기
 	VtxArr[0].vPos = Vector3(-.5f,  .5f, 0.f);
 	VtxArr[1].vPos = Vector3( .5f,  .5f, 0.f);
 	VtxArr[2].vPos = Vector3( .5f, -.5f, 0.f);
@@ -92,40 +92,11 @@ int TempInit()
 	VtxArr[2].vColor = Vector4(0.f, 0.f, 1.f, 1.f);
 	VtxArr[3].vColor = Vector4(1.f, 1.f, 1.f, 1.f);
 
-	// 정점 버퍼 생성
-	D3D11_BUFFER_DESC VertexBufferDesc = {};
-	VertexBufferDesc.ByteWidth = sizeof(Vertex) * 4;
-	VertexBufferDesc.MiscFlags = 0;
+	UINT arrIdx[6] = { 0, 1, 2, 0, 2, 3 };
 
-	VertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER; // 만들어질때 용도(vertex) 지정
-	VertexBufferDesc.CPUAccessFlags = D3D10_CPU_ACCESS_WRITE; // 버퍼가 생성된 이후에 cpu에서 접근해 덮어쓰기가 가능하게 설정
-	VertexBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
+	RectMesh = new CMesh;
+	RectMesh->Create(VtxArr, 4, arrIdx, 6);
 
-	D3D11_SUBRESOURCE_DATA SubDesc = {};
-	SubDesc.pSysMem = VtxArr;
-
-	if (FAILED(_DEVICE->CreateBuffer(&VertexBufferDesc, &SubDesc, VertexBuffer.GetAddressOf())))
-	{
-		return E_FAIL;
-	}
-
-	// Index Buffer
-	UINT arrIdx[6] = {0, 1, 2, 0, 2, 3};
-	D3D11_BUFFER_DESC IndexBufferDesc = {};
-	IndexBufferDesc.ByteWidth = sizeof(UINT) * 6;
-	IndexBufferDesc.MiscFlags = 0;
-
-	IndexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER; // 만들어질때 용도(index) 지정
-	IndexBufferDesc.CPUAccessFlags = 0; 
-	IndexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
-
-	SubDesc = {};
-	SubDesc.pSysMem = arrIdx;
-
-	if (FAILED(_DEVICE->CreateBuffer(&IndexBufferDesc, &SubDesc, IndexBuffer.GetAddressOf())))
-	{
-		return E_FAIL;
-	}
 
 	// ConstantBuffer
 	D3D11_BUFFER_DESC ConstantBufferDesc = {};
@@ -136,7 +107,7 @@ int TempInit()
 	ConstantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	ConstantBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 
-	SubDesc = {};
+	D3D11_SUBRESOURCE_DATA SubDesc = {};
 	SubDesc.pSysMem = arrIdx;
 
 	if (FAILED(_DEVICE->CreateBuffer(&ConstantBufferDesc, nullptr, ConstantBuffer.GetAddressOf())))
@@ -237,6 +208,8 @@ int TempInit()
 
 void TempReleas()
 {
+	if (nullptr != RectMesh)
+		delete RectMesh;
 }
 
 void TempTick()
@@ -274,16 +247,14 @@ void TempTick()
 
 void TempRender()
 {
-	UINT Stride = sizeof(Vertex);
-	UINT Offset = 0;
-	_CONTEXT->IASetVertexBuffers(0, 1, VertexBuffer.GetAddressOf(), &Stride, &Offset);
-	_CONTEXT->IASetIndexBuffer(IndexBuffer.Get(), DXGI_FORMAT_R32_UINT, 0);
+
+
 	_CONTEXT->IASetInputLayout(Layout.Get());
 	_CONTEXT->IASetPrimitiveTopology(D3D_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
 
 	_CONTEXT->VSSetShader(VS.Get(), nullptr, 0);
 	_CONTEXT->PSSetShader(PS.Get(), nullptr, 0);
 
-	//_CONTEXT->Draw(6, 0);
-	_CONTEXT->DrawIndexed(6, 0, 0);
+	RectMesh->Render();
+	
 }
