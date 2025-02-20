@@ -8,49 +8,6 @@
 
 #include "CMesh.h"
 
-// Graphics Pipeline
-
-//=====================
-// IA (input assembler)
-//=====================
-// Vertext Buffer
-// Index Buffer
-// Topology
-// Layout
-// 
-// ===================
-// Vertex Shader Stage
-// ===================
-// 정점을 Local Space에서 World, View, Clip Space를 거쳐 
-// NDC(Normalized Device Coordinates)로 변환
-// 
-// Tessellation
-//	- Hull Shader
-//	- Damain Shader
-// 
-// Geomatry Shader
-// 
-// ==========
-// Rasterizer
-// ==========
-// 
-// ============
-// Pixel Shader
-// ============
-// 각 픽셀의 색상을 결정하고, 
-// 이후 블렌딩 연산을 거쳐 최종적인 픽셀 색상을 렌더 타겟에 저장
-// 
-// 
-// ==================
-// Output Merge State
-// ==================
-// DepthStencil State
-// Blend State
-// 
-// 최종 출력
-// RenderTarget
-// DepthStencilTexture
-//
 
 
 CMesh* RectMesh = nullptr;
@@ -81,7 +38,9 @@ ComPtr<ID3DBlob>			Err_Blob;
 
 int TempInit()
 {
+	// ============
 	// 사각형 그리기
+	// ============
 	VtxArr[0].vPos = Vector3(-.5f,  .5f, 0.f);
 	VtxArr[1].vPos = Vector3( .5f,  .5f, 0.f);
 	VtxArr[2].vPos = Vector3( .5f, -.5f, 0.f);
@@ -97,13 +56,51 @@ int TempInit()
 	RectMesh = new CMesh;
 	RectMesh->Create(VtxArr, 4, arrIdx, 6);
 
+	// ============
+	//   원 그리기
+	// ============
+	vector<Vertex> vecVtx;
+	vector<UINT> vecIdx;
+
+	// 원점 v 초기화(vector에 넣는다)
+	Vertex v;
+	v.vPos = Vector3(0.f, 0.f, 0.f);
+	v.vColor = Vector4(1.f, 1.f, 1.f, 1.f);
+	vecVtx.push_back(v);
+
+
+	float radius = 0.5;
+	UINT slice = 40;
+
+	float angleStep = (2 * XM_PI) / slice;
+
+	float angle = 0.f;
+	for (UINT i = 0; i <= slice; i++)
+	{
+		Vertex v;
+		v.vPos = Vector3(cosf(angle) * radius, sinf(angle) * radius, 0.f);
+		v.vColor = Vector4(1.f, 1.f, 1.f, 1.f);
+
+		vecVtx.push_back(v);
+		angle += angleStep;
+	}
+
+	for (UINT i = 0; i < slice; i++)
+	{
+		vecIdx.push_back(0);
+		vecIdx.push_back(i + 2);
+		vecIdx.push_back(i + 1);
+	}
+
+	CircleMesh = new CMesh;
+	CircleMesh->Create(vecVtx.data(), vecVtx.size(), vecIdx.data(), vecIdx.size());
 
 	// ConstantBuffer
 	D3D11_BUFFER_DESC ConstantBufferDesc = {};
 	ConstantBufferDesc.ByteWidth = sizeof(Transform);
 	ConstantBufferDesc.MiscFlags = 0;
 
-	ConstantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER; // 만들어질때 용도(Constant) 지정
+	ConstantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;   // 만들어질때 용도(Constant) 지정
 	ConstantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	ConstantBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 
@@ -210,6 +207,8 @@ void TempReleas()
 {
 	if (nullptr != RectMesh)
 		delete RectMesh;
+	if (nullptr != CircleMesh)
+		delete CircleMesh;
 }
 
 void TempTick()
@@ -255,6 +254,7 @@ void TempRender()
 	_CONTEXT->VSSetShader(VS.Get(), nullptr, 0);
 	_CONTEXT->PSSetShader(PS.Get(), nullptr, 0);
 
-	RectMesh->Render();
+	//RectMesh->Render();
+	CircleMesh->Render();
 	
 }
