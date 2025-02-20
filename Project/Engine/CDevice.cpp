@@ -1,5 +1,8 @@
 #include "pch.h"
+#include "CConstBuffer.h"
 #include "CDevice.h"
+
+//#include "CConstBuffer.h"
 
 
 CDevice::CDevice()
@@ -10,6 +13,8 @@ CDevice::CDevice()
 
 CDevice::~CDevice()
 {
+	Safe_Del_Array(ConstantBuffer); // 컴파일러가 아래 처럼 인식
+	// Safe_Del_Array<CConstBuffer, 4>(ConstantBuffer);
 }
 
 
@@ -72,6 +77,14 @@ int CDevice::init(HWND _hwnd, POINT _Resolution)
 
 	// ViewPort 정보 세팅
 	Context->RSSetViewports(1, &viewport);
+
+	// 필요한 상수버퍼 생성
+	if (FAILED(CreateConstBuffer()))
+	{
+		// 실패시 종료
+		MessageBox(nullptr, L"ConstantBuffer 생성 실패", L"ConstantBuffer 생성 실패", MB_OK);
+		return E_FAIL;
+	}
 
 
 	// 정상 종료
@@ -177,6 +190,14 @@ int CDevice::CreateView()
 
 
 
+
+	return S_OK;
+}
+
+int CDevice::CreateConstBuffer()
+{
+	ConstantBuffer[(UINT)CB_TYPE::TRNSFORM] = new CConstBuffer;
+	ConstantBuffer[(UINT)CB_TYPE::TRNSFORM]->Create(sizeof(Transform), CB_TYPE::TRNSFORM);
 
 	return S_OK;
 }

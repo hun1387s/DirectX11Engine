@@ -17,3 +17,5 @@
 #define KEY_RELEASED(key)	  KEY_CHECK(key, KEY_STATE::RELEASED)
 
 //typedef Vector3 Vec3;
+
+

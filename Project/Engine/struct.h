@@ -14,5 +14,6 @@ struct Vertex
 struct Transform
 {
 	Vector4 Position;
+	Vector4 Scale;
 	
 };

@@ -7,14 +7,14 @@
 #include "CPathMgr.h"
 
 #include "CMesh.h"
+#include "CConstBuffer.h"
 
 
 
 CMesh* RectMesh = nullptr;
 CMesh* CircleMesh = nullptr;
 
-// 상수버퍼(ConstantBuffer): 물체의 위치, 크기, 회전 (transform)
-ComPtr<ID3D11Buffer> ConstantBuffer;
+
 
 // 정점 하나를 구성하는 Layout 정보
 ComPtr<ID3D11InputLayout> Layout;
@@ -22,8 +22,8 @@ ComPtr<ID3D11InputLayout> Layout;
 // System Mem 정점 정보
 Vertex VtxArr[4] = {};
 
-// 물체의 위치값
-Vector3 ObjectPos;
+// 물체의 위치, 크기, 회전
+Transform transform = {};
 
 // Vertex Shader
 ComPtr<ID3DBlob>			VS_Blob;	// 컴파일한 쉐이더 코드를 저장
@@ -95,22 +95,7 @@ int TempInit()
 	CircleMesh = new CMesh;
 	CircleMesh->Create(vecVtx.data(), vecVtx.size(), vecIdx.data(), vecIdx.size());
 
-	// ConstantBuffer
-	D3D11_BUFFER_DESC ConstantBufferDesc = {};
-	ConstantBufferDesc.ByteWidth = sizeof(Transform);
-	ConstantBufferDesc.MiscFlags = 0;
-
-	ConstantBufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;   // 만들어질때 용도(Constant) 지정
-	ConstantBufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
-	ConstantBufferDesc.Usage = D3D11_USAGE_DYNAMIC;
-
-	D3D11_SUBRESOURCE_DATA SubDesc = {};
-	SubDesc.pSysMem = arrIdx;
-
-	if (FAILED(_DEVICE->CreateBuffer(&ConstantBufferDesc, nullptr, ConstantBuffer.GetAddressOf())))
-	{
-		return E_FAIL;
-	}
+	
 
 
 	// Vertex Shader
@@ -197,9 +182,6 @@ int TempInit()
 		return E_FAIL;
 	}
 
-	ObjectPos = Vector3(0.f, 0.f, 0.f);
-
-
 	return S_OK;
 }
 
@@ -217,31 +199,28 @@ void TempTick()
 
 	if (KEY_PRESSED(KEY::W))
 	{
-		ObjectPos.y += 1.f * DT;
+		transform.Position.y += 1.f * DT;
 	}
 	if (KEY_PRESSED(KEY::S))
 	{
-		ObjectPos.y -= 1.f * DT;
+		transform.Position.y -= 1.f * DT;
 	}
 	if (KEY_PRESSED(KEY::A))
 	{
-		ObjectPos.x -= 1.f * DT;
+		transform.Position.x -= 1.f * DT;
 	}
 	if (KEY_PRESSED(KEY::D))
 	{
-		ObjectPos.x += 1.f * DT;
+		transform.Position.x += 1.f * DT;
 	}
 
 	// SysMem -> GPU
-	D3D11_MAPPED_SUBRESOURCE tSub = {};
-	_CONTEXT->Map(ConstantBuffer.Get(), 0, D3D11_MAP_WRITE_DISCARD, 0, &tSub);
+	CConstBuffer* constBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRNSFORM);
+	constBuffer->SetData(&transform);
+	constBuffer->Binding();
 
-	Transform trans = {};
-	trans.Position = ObjectPos;
-	memcpy(tSub.pData, &trans, sizeof(trans));
-	_CONTEXT->Unmap(ConstantBuffer.Get(), 0);
 
-	_CONTEXT->VSSetConstantBuffers(0, 1, ConstantBuffer.GetAddressOf());
+	
 }
 
 void TempRender()

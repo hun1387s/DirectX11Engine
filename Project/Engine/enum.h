@@ -14,3 +14,13 @@ enum class ASSET_TYPE
 
 	END,
 };
+
+enum class CB_TYPE // Constant Buffer
+{
+	TRNSFORM,
+	MATERIAL,
+	ANIMATION,
+	GLOBAL,
+
+	END,
+};
