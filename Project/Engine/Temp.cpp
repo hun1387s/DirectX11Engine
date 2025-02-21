@@ -12,17 +12,17 @@
 
 
 // Mesh
-CMesh* RectMesh = nullptr;
-CMesh* CircleMesh = nullptr;
+Ptr<CMesh> RectMesh = nullptr;
+Ptr<CMesh> CircleMesh = nullptr;
+
+// Shader
+Ptr<CGraphicShader> Shader = nullptr;
 
 // System Mem 정점 정보
 Vertex VtxArr[4] = {};
 
 // 물체의 위치, 크기, 회전
 Transform transform = {};
-
-// Shader
-CGraphicShader* Shader = nullptr;
 
 
 int TempInit()
@@ -99,13 +99,6 @@ int TempInit()
 
 void TempReleas()
 {
-	if (nullptr != RectMesh)
-		delete RectMesh;
-	if (nullptr != CircleMesh)
-		delete CircleMesh;
-
-	if (nullptr != Shader)
-		delete Shader;
 }
 
 void TempTick()
@@ -133,9 +126,6 @@ void TempTick()
 	CConstBuffer* constBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRNSFORM);
 	constBuffer->SetData(&transform);
 	constBuffer->Binding();
-
-
-	
 }
 
 void TempRender()

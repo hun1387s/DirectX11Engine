@@ -36,3 +36,5 @@ using std::wstring;
 
 
 #include "singleton.h"
+
+#include "ptr.h"

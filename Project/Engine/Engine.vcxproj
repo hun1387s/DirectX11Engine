@@ -170,6 +170,7 @@ call copy.bat</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CAsset.h" />
+    <ClInclude Include="CAssetMgr.h" />
     <ClInclude Include="CComponent.h" />
     <ClInclude Include="CComputeShader.h" />
     <ClInclude Include="CDevice.h" />
@@ -189,6 +190,7 @@ call copy.bat</Command>
     <ClInclude Include="global.h" />
     <ClInclude Include="CKeyMgr.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="ptr.h" />
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />
@@ -196,6 +198,8 @@ call copy.bat</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAsset.cpp" />
+    <ClCompile Include="CAssetMgr.cpp" />
+    <ClCompile Include="CAsset_Init.cpp" />
     <ClCompile Include="CComponent.cpp" />
     <ClCompile Include="CComputeShader.cpp" />
     <ClCompile Include="CDevice.cpp" />
