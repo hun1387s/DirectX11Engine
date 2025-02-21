@@ -26,10 +26,6 @@ Vertex VtxArr[4] = {};
 Transform transform = {};
 
 
-// Shader
-CGraphicShader* Shader = nullptr;
-
-
 int TempInit()
 {
 	// ============

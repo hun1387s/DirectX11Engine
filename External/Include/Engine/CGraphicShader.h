@@ -21,7 +21,6 @@ public:
 
     void SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology) { Topology = topology; }
 
-
     virtual void Binding() override;
 
 public:
