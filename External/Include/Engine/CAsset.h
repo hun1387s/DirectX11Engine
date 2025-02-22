@@ -35,5 +35,7 @@ public:
     template<typename T> // 템플릿 클래스 프렌드 정의
     friend class Ptr;
 
+    friend class CAssetMgr;
+
 };
 

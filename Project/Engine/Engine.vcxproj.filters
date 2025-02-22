@@ -149,6 +149,14 @@
     <ClInclude Include="CGraphicShader.h">
       <Filter>07. Asset\Shader\GraphicShader</Filter>
     </ClInclude>
+    <ClInclude Include="CAssetMgr.h" />
+    <ClInclude Include="ptr.h" />
+    <ClInclude Include="components.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="assets.h">
+      <Filter>01. Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -200,6 +208,8 @@
     <ClCompile Include="CGraphicShader.cpp">
       <Filter>07. Asset\Shader\GraphicShader</Filter>
     </ClCompile>
+    <ClCompile Include="CAssetMgr.cpp" />
+    <ClCompile Include="CAsset_Init.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

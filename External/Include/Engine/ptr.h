@@ -7,7 +7,12 @@ class Ptr
 private:
 	T* Asset;
 
+
 public:
+	T* Get() { return Asset; }
+	T** GetAdressOf() { return &Asset; }
+
+
 	void operator = (T* asset)
 	{
 		if (nullptr != Asset)
