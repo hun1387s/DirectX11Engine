@@ -77,6 +77,57 @@
     <Filter Include="07. Asset\Shader\ComputeShader">
       <UniqueIdentifier>{642cb03b-d972-469b-8833-17e62cf5d17f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="06. Component\01. Transform">
+      <UniqueIdentifier>{c23fde3e-a30d-41b1-ab9a-64e469179225}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\02. Camera">
+      <UniqueIdentifier>{475f7cf2-6055-4507-a6fe-d254a41039f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\03. Collider2D">
+      <UniqueIdentifier>{a2deafef-6b66-4a3b-8045-dbf4eca56c43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\04. Collider3D">
+      <UniqueIdentifier>{21aa9902-779b-467e-84c7-1028ee9c8a36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\05. Aminator2D">
+      <UniqueIdentifier>{2f4d2b91-dd04-4a2d-bee9-44da425bc691}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\06. Animator3D">
+      <UniqueIdentifier>{2d1f3f00-ef5c-4d72-8aea-51bb8acd06ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\Rendering">
+      <UniqueIdentifier>{cfea7df7-646a-4892-a8ab-45c3ba484590}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\Rendering\TileMap">
+      <UniqueIdentifier>{02ec236d-64f1-4ed2-b1f6-e8e7a010bd22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\Rendering\ParticleSystem">
+      <UniqueIdentifier>{748ac40c-f840-45f2-a864-674413d25afc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\07. Light2D">
+      <UniqueIdentifier>{18a6a3cb-ad70-4fbc-b04a-93a70192e20c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\08. Light3D">
+      <UniqueIdentifier>{e3955ce8-aedd-4aa8-810a-b70d11642534}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\Rendering\SkyBox">
+      <UniqueIdentifier>{c3bcb7f8-5d00-42d7-9667-8cddaec22eb6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\Rendering\Decal">
+      <UniqueIdentifier>{5e6a7a00-9392-4837-bc8f-dbfa1e51d5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\Rendering\LandScape">
+      <UniqueIdentifier>{b04eabf0-7650-4210-9523-9eab0908f660}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\Script">
+      <UniqueIdentifier>{3e1f685e-b08f-4da3-86a3-88674178ae93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04. Manager\04. AssetMgr">
+      <UniqueIdentifier>{08029ad9-d6c5-42d0-bb10-02bb027267be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="06. Component\Rendering\01. MeshRender">
+      <UniqueIdentifier>{4bba1e50-31f7-4c45-9f52-e82c27630103}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -149,13 +200,24 @@
     <ClInclude Include="CGraphicShader.h">
       <Filter>07. Asset\Shader\GraphicShader</Filter>
     </ClInclude>
-    <ClInclude Include="CAssetMgr.h" />
     <ClInclude Include="ptr.h" />
     <ClInclude Include="components.h">
       <Filter>01. Header</Filter>
     </ClInclude>
     <ClInclude Include="assets.h">
       <Filter>01. Header</Filter>
+    </ClInclude>
+    <ClInclude Include="CRenderComponent.h">
+      <Filter>06. Component\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="CAssetMgr.h">
+      <Filter>04. Manager\04. AssetMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CTransform.h">
+      <Filter>06. Component\01. Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="CMeshRender.h">
+      <Filter>06. Component\Rendering\01. MeshRender</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,8 +270,21 @@
     <ClCompile Include="CGraphicShader.cpp">
       <Filter>07. Asset\Shader\GraphicShader</Filter>
     </ClCompile>
-    <ClCompile Include="CAssetMgr.cpp" />
-    <ClCompile Include="CAsset_Init.cpp" />
+    <ClCompile Include="CRenderComponent.cpp">
+      <Filter>06. Component\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="CAsset_Init.cpp">
+      <Filter>04. Manager\04. AssetMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CAssetMgr.cpp">
+      <Filter>04. Manager\04. AssetMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CTransform.cpp">
+      <Filter>06. Component\01. Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="CMeshRender.cpp">
+      <Filter>06. Component\Rendering\01. MeshRender</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

@@ -16,29 +16,29 @@ public:
 	void operator = (T* asset)
 	{
 		if (nullptr != Asset)
-			Asset->Release();
+			this->Asset->Release();
 
-		Asset = asset;
+		this->Asset = asset;
 
 		if (nullptr != Asset)
-			Asset->AddRef();
+			this->Asset->AddRef();
 	}
 
 	void operator = (const Ptr<T>& ptr)
 	{
 		if (nullptr != Asset)
-			Asset->Release();
+			this->Asset->Release();
 
-		Asset = ptr.asset;
+		this->Asset = ptr.Asset;
 
 		if (nullptr != Asset)
-			Asset->AddRef();
+			this->Asset->AddRef();
 	}
 
 
 	T* operator->()
 	{
-		return Asset;
+		return this->Asset;
 	}
 
 public:

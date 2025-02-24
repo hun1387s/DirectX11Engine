@@ -11,55 +11,41 @@
 #include "CConstBuffer.h"
 #include "CGraphicShader.h"
 
+#include "CGameObject.h"
+#include "CTransform.h"
+#include "CMeshRender.h"
 
-// 물체의 위치, 크기, 회전
-Transform transform = {};
+CGameObject* object = nullptr;
 
 
 int TempInit()
 {
-	
+	assert(false);
+	object = new CGameObject;
+	object->AddComponent(new CTransform);
+	object->AddComponent(new CMeshRender);
+
+	object->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	object->MeshRender()->SetShader(CAssetMgr::GetInst()->FindAsset<CGraphicShader>(L"Std2DShader"));
+
 	return S_OK;
 }
 
 void TempReleas()
 {
-
+	delete object;
 }
 
 void TempTick()
 {
 	float DT = CTimeMgr::GetInst()->GetDeltaTime();
 
-	if (KEY_PRESSED(KEY::W))
-	{
-		transform.Position.y += 1.f * DT;
-	}
-	if (KEY_PRESSED(KEY::S))
-	{
-		transform.Position.y -= 1.f * DT;
-	}
-	if (KEY_PRESSED(KEY::A))
-	{
-		transform.Position.x -= 1.f * DT;
-	}
-	if (KEY_PRESSED(KEY::D))
-	{
-		transform.Position.x += 1.f * DT;
-	}
+	object->tick();
+	object->finaltick();
 
-	// SysMem -> GPU
-	CConstBuffer* constBuffer = CDevice::GetInst()->GetConstBuffer(CB_TYPE::TRNSFORM);
-	constBuffer->SetData(&transform);
-	constBuffer->Binding();
 }
 
 void TempRender()
 {
-	auto shader = CAssetMgr::GetInst()->FindAsset<CGraphicShader>(L"Std2DShader");
-	shader->Binding();
-
-	Ptr<CMesh> mesh = CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh");
-	mesh->Render();
-	
+	object->render();	
 }
