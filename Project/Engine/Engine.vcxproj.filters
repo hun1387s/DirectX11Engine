@@ -128,6 +128,9 @@
     <Filter Include="06. Component\Rendering\01. MeshRender">
       <UniqueIdentifier>{4bba1e50-31f7-4c45-9f52-e82c27630103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{c4d26f59-f080-4a14-8b9e-1ced99a75f81}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -219,6 +222,10 @@
     <ClInclude Include="CMeshRender.h">
       <Filter>06. Component\Rendering\01. MeshRender</Filter>
     </ClInclude>
+    <ClInclude Include="CScript.h" />
+    <ClInclude Include="CPlayerScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -284,6 +291,10 @@
     </ClCompile>
     <ClCompile Include="CMeshRender.cpp">
       <Filter>06. Component\Rendering\01. MeshRender</Filter>
+    </ClCompile>
+    <ClCompile Include="CScript.cpp" />
+    <ClCompile Include="CPlayerScript.cpp">
+      <Filter>Scripts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

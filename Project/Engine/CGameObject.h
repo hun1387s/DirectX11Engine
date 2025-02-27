@@ -5,15 +5,16 @@ class CComponent;
 class CRenderComponent;
 class CTransform;
 class CMeshRender;
+class CScript;
 
 class CGameObject :
     public CEntity
 {
 private:
     CComponent*         arrComponent[(UINT)COMPONENT_TYPE::END];
-
     CRenderComponent*   renderComponent;
 
+    vector<CScript*>     vecScript;
 
 
 public:

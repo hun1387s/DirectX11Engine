@@ -16,6 +16,8 @@
 #define KEY_TAP(key)		  KEY_CHECK(key, KEY_STATE::TAP)
 #define KEY_RELEASED(key)	  KEY_CHECK(key, KEY_STATE::RELEASED)
 
+#define DT CTimeMgr::GetInst()->GetDeltaTime()
+
 //typedef Vector3 Vec3;
 
 

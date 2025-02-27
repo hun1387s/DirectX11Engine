@@ -18,6 +18,7 @@ CTransform::~CTransform()
 
 void CTransform::finaltick()
 {
+
 }
 
 void CTransform::Binding()
