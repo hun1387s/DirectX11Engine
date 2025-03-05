@@ -29,7 +29,7 @@ int TempInit()
 
 	object1->Transform()->SetRelativeScale(0.2f, 0.2f, 0.2f);
 
-	object1->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
+	object1->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"CircleMesh"));
 	object1->MeshRender()->SetShader(CAssetMgr::GetInst()->FindAsset<CGraphicShader>(L"Std2DShader"));
 
 	object2 = new CGameObject;

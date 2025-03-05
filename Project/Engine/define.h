@@ -18,6 +18,8 @@
 
 #define DT CTimeMgr::GetInst()->GetDeltaTime()
 
+#define MAX_LAYER 32
+
 //typedef Vector3 Vec3;
 
 

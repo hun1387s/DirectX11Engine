@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 // 배열 지워주는 함수템플릿
 template<typename T, int SIZE>

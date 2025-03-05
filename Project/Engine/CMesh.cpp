@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CMesh.h"
 
 #include "CDevice.h"
@@ -27,14 +27,14 @@ CMesh::~CMesh()
 
 int CMesh::Create(Vertex* _VtxSysMem, size_t _VtxCount, UINT* _IdxSysMem, size_t _IdxCount)
 {
-	VertexCount = _VtxCount;
-	IndexCount = _IdxCount;
+	VertexCount = (UINT)_VtxCount;
+	IndexCount = (UINT)_IdxCount;
 
 	// Create VertexBuffer
-	VertexBufferDesc.ByteWidth = sizeof(Vertex) * _VtxCount;
+	VertexBufferDesc.ByteWidth = sizeof(Vertex) * (UINT)_VtxCount;
 	VertexBufferDesc.MiscFlags = 0;
 
-	VertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER; // 만들어질때 용도(vertex) 지정
+	VertexBufferDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;  // 만들어질때 용도(vertex) 지정
 	VertexBufferDesc.CPUAccessFlags = 0;
 	VertexBufferDesc.Usage = D3D11_USAGE_DEFAULT;
 
@@ -47,7 +47,7 @@ int CMesh::Create(Vertex* _VtxSysMem, size_t _VtxCount, UINT* _IdxSysMem, size_t
 	}
 
 	// Create IndexBuffer
-	IndexBufferDesc.ByteWidth = sizeof(UINT) * IndexCount;
+	IndexBufferDesc.ByteWidth = sizeof(UINT) * (UINT)IndexCount;
 	IndexBufferDesc.MiscFlags = 0;
 
 	IndexBufferDesc.BindFlags = D3D11_BIND_INDEX_BUFFER; // 만들어질때 용도(index) 지정
