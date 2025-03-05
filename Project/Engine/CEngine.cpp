@@ -6,6 +6,7 @@
 #include "CPathMgr.h"
 #include "CKeyMgr.h"
 #include "CAssetMgr.h"
+#include "CLevelMgr.h"
 
 #include "Temp.h"
 
@@ -21,7 +22,7 @@ CEngine::CEngine()
 
 CEngine::~CEngine()
 {
-	TempReleas();
+
 }
 
 int CEngine::init(HWND _hWnd, POINT _Resloution)
@@ -46,12 +47,7 @@ int CEngine::init(HWND _hWnd, POINT _Resloution)
 	CTimeMgr::GetInst()->init();
 	CKeyMgr::GetInst()->init();
 	CAssetMgr::GetInst()->init();
-
-	if (FAILED(TempInit()))
-	{
-		MessageBox(nullptr, L"TempInit 초기화 실패", L"VertexBuffer 생성 실패", MB_OK);
-		return E_FAIL;
-	}
+	CLevelMgr::GetInst()->init();
 
 	return S_OK;
 }
@@ -65,7 +61,7 @@ void CEngine::progress()
 	CKeyMgr::GetInst()->tick();
 	
 	// Object tick
-	TempTick();
+	CLevelMgr::GetInst()->tick();
 
 
 	// =========
@@ -78,7 +74,7 @@ void CEngine::progress()
 	
 
 	// Object Render
-	TempRender();
+	CLevelMgr::GetInst()->render();
 	
 	// SwapChain->Present();
 	CDevice::GetInst()->Present();

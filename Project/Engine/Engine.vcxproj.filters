@@ -134,6 +134,9 @@
     <Filter Include="05. Level">
       <UniqueIdentifier>{b640d2c1-eccc-419d-a511-962a4597fdb7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04. Manager\05. LevelMgr">
+      <UniqueIdentifier>{2db03a26-4f11-412a-b80f-e4aa9d100b83}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -225,7 +228,6 @@
     <ClInclude Include="CMeshRender.h">
       <Filter>07. Component\Rendering\01. MeshRender</Filter>
     </ClInclude>
-    <ClInclude Include="CScript.h" />
     <ClInclude Include="CPlayerScript.h">
       <Filter>Scripts</Filter>
     </ClInclude>
@@ -233,6 +235,12 @@
       <Filter>05. Level</Filter>
     </ClInclude>
     <ClInclude Include="CLayer.h" />
+    <ClInclude Include="CLevelMgr.h">
+      <Filter>04. Manager\05. LevelMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="CScript.h">
+      <Filter>Scripts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine.cpp">
@@ -299,7 +307,6 @@
     <ClCompile Include="CMeshRender.cpp">
       <Filter>07. Component\Rendering\01. MeshRender</Filter>
     </ClCompile>
-    <ClCompile Include="CScript.cpp" />
     <ClCompile Include="CPlayerScript.cpp">
       <Filter>Scripts</Filter>
     </ClCompile>
@@ -307,6 +314,12 @@
       <Filter>05. Level</Filter>
     </ClCompile>
     <ClCompile Include="CLayer.cpp" />
+    <ClCompile Include="CLevelMgr.cpp">
+      <Filter>04. Manager\05. LevelMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl">

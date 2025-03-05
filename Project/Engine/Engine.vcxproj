@@ -189,6 +189,7 @@ call copy.bat</Command>
     <ClInclude Include="CGraphicShader.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CLevel.h" />
+    <ClInclude Include="CLevelMgr.h" />
     <ClInclude Include="CMesh.h" />
     <ClInclude Include="CConstBuffer.h" />
     <ClInclude Include="CMeshRender.h" />
@@ -226,6 +227,7 @@ call copy.bat</Command>
     <ClCompile Include="CGraphicShader.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CLevel.cpp" />
+    <ClCompile Include="CLevelMgr.cpp" />
     <ClCompile Include="CMesh.cpp" />
     <ClCompile Include="CConstBuffer.cpp" />
     <ClCompile Include="CMeshRender.cpp" />
