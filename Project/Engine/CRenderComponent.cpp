@@ -1,4 +1,4 @@
-#include "pch.h"
+﻿#include "pch.h"
 #include "CRenderComponent.h"
 
 CRenderComponent::CRenderComponent(COMPONENT_TYPE type)
