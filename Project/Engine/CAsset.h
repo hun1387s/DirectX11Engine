@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "CEntity.h"
 
 
@@ -18,6 +18,9 @@ public:
     const wstring& GetKey() { return Key; }
     const wstring& GetRelativePath() { return RelativePath; }
     ASSET_TYPE GetAssetType() { return Type; }
+
+    virtual int Load(const wstring& _FilePath) = 0;
+    virtual int Save(const wstring& _FilePath) = 0;
 
 private:
     void AddRef() { RefCount++; }

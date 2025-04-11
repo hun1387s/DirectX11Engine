@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "CShader.h"
 
 class CGraphicShader :
@@ -22,6 +22,9 @@ public:
     void SetTopology(D3D11_PRIMITIVE_TOPOLOGY topology) { Topology = topology; }
 
     virtual void Binding() override;
+
+    virtual int Load(const wstring& _FilePath) override { return 0; };
+    virtual int Save(const wstring& _FilePath) override { return 0; };
 
 public:
     CGraphicShader();

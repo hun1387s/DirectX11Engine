@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #include "CAsset.h"
 
 
@@ -24,6 +24,9 @@ public:
 
 
     void Render();
+
+    virtual int Load(const wstring& _FilePath) override { return 0; };
+    virtual int Save(const wstring& _FilePath) override { return 0; };
     
 public:
     CMesh();
