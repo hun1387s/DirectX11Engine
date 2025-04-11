@@ -114,8 +114,8 @@ void CAssetMgr::CreateDefaultGraphicShader()
 	shader = new CGraphicShader;
 	//shader->CreateVertexShader(strPath + L"shader\\std2d.fx", "VS_Std2D");
 	//shader->CreatePixelShader(strPath + L"shader\\std2d.fx", "PS_Std2D");
-	shader->CreateVertexShader(strPath + L"shader\\VS.hlsl", "VS_Std2D");
-	shader->CreatePixelShader(strPath + L"shader\\PS.hlsl", "PS_Std2D");
+    shader->CreateVertexShader(strPath + L"shader\\VS.hlsl", "VS_Std2D");
+    shader->CreatePixelShader(strPath + L"shader\\PS.hlsl", "PS_Std2D");
 
 	AddAsset<CGraphicShader>(L"Std2DShader", shader);
 
