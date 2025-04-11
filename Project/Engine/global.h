@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #include <wrl.h>
 using namespace Microsoft::WRL;
@@ -7,6 +7,8 @@ using namespace Microsoft::WRL;
 #include <d3dcompiler.h>
 #include <DirectXMath.h>
 #include <DirectXPackedVector.h>
+
+#include <DirectXTex/DirectXTex.h>
 
 #include "SimpleMath.h"
 
