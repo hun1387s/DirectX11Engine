@@ -212,7 +212,6 @@ call copy.bat</Command>
     <ClInclude Include="SimpleMath.h" />
     <ClInclude Include="singleton.h" />
     <ClInclude Include="struct.h" />
-    <ClInclude Include="Temp.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAsset.cpp" />
@@ -246,7 +245,6 @@ call copy.bat</Command>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="Temp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="SimpleMath.inl" />
