@@ -98,6 +98,7 @@ void CAssetMgr::CreateDefaultMesh()
 
 void CAssetMgr::CreateDefaultTexture()
 {
+    Ptr<CTexture> texture = Load<CTexture>(L"texture\\A004.png", L"texture\\A004.png");
 }
 
 void CAssetMgr::CreateDefaultMaterial()

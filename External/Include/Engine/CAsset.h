@@ -19,6 +19,7 @@ public:
     const wstring& GetRelativePath() { return RelativePath; }
     ASSET_TYPE GetAssetType() { return Type; }
 
+private:
     virtual int Load(const wstring& _FilePath) = 0;
     virtual int Save(const wstring& _FilePath) = 0;
 

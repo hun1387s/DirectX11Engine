@@ -31,9 +31,10 @@ void CLevelMgr::init()
 	object->AddComponent(new CMeshRender);
 	object->AddComponent(new CPlayerScript);
 
-	object->Transform()->SetRelativeScale(0.2f, 0.2f, 0.2f);
+	object->Transform()->SetRelativeScale(0.66f, 1.f, 0.2f);
 
-	object->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"CircleMesh"));
+	//object->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"CircleMesh"));
+    object->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	object->MeshRender()->SetShader(CAssetMgr::GetInst()->FindAsset<CGraphicShader>(L"Std2DShader"));
 
 	curLevel->AddObject(0, object);

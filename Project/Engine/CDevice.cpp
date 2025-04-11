@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CConstBuffer.h"
 #include "CDevice.h"
 
@@ -9,6 +9,8 @@ CDevice::CDevice()
 	: MainWnd(nullptr)
 	, RenderResolution{}
 {
+    for (UINT i = 0; i < (UINT)CB_TYPE::END; ++i)
+        ConstantBuffer[i] = nullptr;
 }
 
 CDevice::~CDevice()
@@ -68,8 +70,8 @@ int CDevice::init(HWND _hwnd, POINT _Resolution)
 	D3D11_VIEWPORT viewport = {};
 	viewport.TopLeftX = 0;
 	viewport.TopLeftY = 0;
-	viewport.Width = RenderResolution.x;
-	viewport.Height = RenderResolution.y;
+	viewport.Width = (FLOAT)RenderResolution.x;
+	viewport.Height = (FLOAT)RenderResolution.y;
 
 	// 깊이 텍스쳐에 저장되는 깊이 min max 지정
 	viewport.MinDepth = 0;

@@ -1,6 +1,7 @@
-﻿#pragma once
+#pragma once
 #include "singleton.h"
 
+#include "CPathMgr.h"
 #include "assets.h"
 
 // 자산(Asset) 관리를 담당하는 싱글톤 클래스
@@ -23,6 +24,9 @@ public:
 
 
 public:
+    template<typename T>
+    Ptr<T> Load(const wstring& strKey, const wstring& _strRelativePath);
+
     // 특정 키 값을 기반으로 자산을 찾는 템플릿 함수
     template<typename T>
     Ptr<T> FindAsset(const wstring& key);
@@ -57,6 +61,9 @@ ASSET_TYPE GetAssetType()
     if constexpr (mybool<T, CGraphicShader>)
         return ASSET_TYPE::GRAPHICS_SHADER;
 
+    if constexpr (mybool<T, CTexture>)
+        return ASSET_TYPE::TEXTURE;
+
     // 기타 타입 판별 로직 주석 처리 (필요하면 확장 가능)
     // if (info.hash_code() == typeid(Prefab).hash_code())
     //     return ASSET_TYPE::PREFAB;
@@ -64,6 +71,30 @@ ASSET_TYPE GetAssetType()
     //     return ASSET_TYPE::TEXTURE;
     // if (info.hash_code() == typeid(CSound).hash_code())
     //     return ASSET_TYPE::SOUND;
+
+}
+
+template<typename T>
+inline Ptr<T> CAssetMgr::Load(const wstring & strKey, const wstring & _strRelativePath)
+{
+    Ptr<CAsset> asset = FindAsset<T>(strKey).Get();
+    if (nullptr != asset.Get())
+    {
+        return (T*)asset.Get();
+    }
+
+    wstring strFullPath = CPathMgr::GetInst()->GetContentPath();
+    strFullPath += _strRelativePath;
+
+    asset = new T;
+    if (FAILED(asset->Load(strFullPath)))
+    {
+        MessageBox(nullptr, strFullPath.c_str(), L"에셋 로딩 실패", MB_OK);
+        return nullptr;
+    }
+
+
+    return (T*)asset.Get();
 }
 
 // 특정 키 값을 통해 자산을 찾는 함수

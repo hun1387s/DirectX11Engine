@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CConstBuffer.h"
 #include "CDevice.h"
 
@@ -18,7 +18,7 @@ int CConstBuffer::Create(size_t bufferSize, CB_TYPE type)
 {
 	Type = type;
 
-	Buffer_Desc.ByteWidth = bufferSize;
+	Buffer_Desc.ByteWidth = (UINT)bufferSize;
 	Buffer_Desc.MiscFlags = 0;
 
 	// 버퍼 용도 설정
