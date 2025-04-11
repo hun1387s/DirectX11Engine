@@ -92,7 +92,7 @@ inline Ptr<T> CAssetMgr::Load(const wstring & strKey, const wstring & _strRelati
         MessageBox(nullptr, strFullPath.c_str(), L"에셋 로딩 실패", MB_OK);
         return nullptr;
     }
-
+    AddAsset<T>(strKey, (T*)asset.Get());
 
     return (T*)asset.Get();
 }

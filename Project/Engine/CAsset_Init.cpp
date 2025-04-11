@@ -27,18 +27,22 @@ void CAssetMgr::CreateDefaultMesh()
 	// ============
 	v.vPos = Vector3(-.5f, .5f, 0.f);
 	v.vColor = Vector4(1.f, 0.f, 0.f, 1.f);
+    v.vUV = Vector2(0.f, 0.f);
 	vecVtx.push_back(v);
 
 	v.vPos = Vector3(.5f, .5f, 0.f);
 	v.vColor = Vector4(0.f, 1.f, 0.f, 1.f);
+    v.vUV = Vector2(1.f, 0.f);
 	vecVtx.push_back(v);
 
 	v.vPos = Vector3(.5f, -.5f, 0.f);
 	v.vColor = Vector4(0.f, 0.f, 1.f, 1.f);
+    v.vUV = Vector2(1.f, 1.f);
 	vecVtx.push_back(v);
 
 	v.vPos = Vector3(-.5f, -.5f, 0.f);
 	v.vColor = Vector4(1.f, 1.f, 1.f, 1.f);
+    v.vUV = Vector2(0.f, 1.f);
 	vecVtx.push_back(v);
 
 	vecIdx.push_back(0);

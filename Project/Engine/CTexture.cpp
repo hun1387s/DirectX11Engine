@@ -10,6 +10,11 @@ CTexture::~CTexture()
 {}
 
 
+void CTexture::Binding(int _registerNum)
+{
+    _CONTEXT->PSSetShaderResources(_registerNum, 1, ShaderResourceView.GetAddressOf());
+}
+
 int CTexture::Load(const wstring & _FilePath)
 {
     wchar_t Ext[50] = {};
