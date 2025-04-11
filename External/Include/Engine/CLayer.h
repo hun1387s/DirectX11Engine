@@ -1,9 +1,9 @@
 ﻿#pragma once
-#include "CLevel.h"
+#include "CEntity.h"
 
 class CGameObject;
 
-class CLayer //: public CLevel
+class CLayer : public CEntity
 {
 
 private:
