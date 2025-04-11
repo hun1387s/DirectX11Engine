@@ -1,10 +1,10 @@
-﻿#pragma once
+#pragma once
 
 
 #include "CMesh.h"
+#include "CTexture.h"
 //#include "CMeshData.h"
 //#include "CMaterial.h"
-//#include "CTexture.h"
 //#include "CSound.h"
 
 

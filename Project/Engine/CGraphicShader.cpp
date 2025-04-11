@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CGraphicShader.h"
 
 #include "CDevice.h"
@@ -55,13 +55,20 @@ int CGraphicShader::CreateVertexShader(const wstring& filePath, const string& VS
 
 	//LayoutDesc[1].AlignedByteOffset = 12;
 	LayoutDesc[1].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
-
 	LayoutDesc[1].Format = DXGI_FORMAT_R32G32B32A32_FLOAT;
 	LayoutDesc[1].InputSlot = 0;
 	LayoutDesc[1].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
 	LayoutDesc[1].InstanceDataStepRate = 0;
 	LayoutDesc[1].SemanticIndex = 0;
 	LayoutDesc[1].SemanticName = "COLOR";
+
+    LayoutDesc[2].AlignedByteOffset = 28;
+    LayoutDesc[2].Format = DXGI_FORMAT_R32G32_FLOAT;
+    LayoutDesc[2].InputSlot = 0;
+    LayoutDesc[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
+    LayoutDesc[2].InstanceDataStepRate = 0;
+    LayoutDesc[2].SemanticIndex = 0;
+    LayoutDesc[2].SemanticName = "TEXCOORD";
 
 
 	if (FAILED(_DEVICE->CreateInputLayout(LayoutDesc, 2,

@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CTimeMgr.h"
 
 #include "CEngine.h"
@@ -11,7 +11,7 @@ CTimeMgr::CTimeMgr()
 	, DeltaTime(0.f)
 	, Time(0.f)
 	, AccTime(0.f)
-	, FrameCount(0.f)
+	, FrameCount(0)
 {
 }
 

@@ -1,4 +1,4 @@
-﻿#include "pch.h"
+#include "pch.h"
 #include "CEngine.h"
 
 #include "CDevice.h"
@@ -8,7 +8,6 @@
 #include "CAssetMgr.h"
 #include "CLevelMgr.h"
 
-#include "Temp.h"
 
 CEngine* CEngine::g_This = nullptr;
 

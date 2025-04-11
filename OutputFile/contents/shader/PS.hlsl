@@ -3,6 +3,8 @@
 
 float4 PS_Std2D(VS_OUT _in) : SV_Target
 {
-    
-    return _in.vColor;
+
+    float4 vColor = g_tex.Sample(g_Sam, _in.vUV);
+
+    return vColor;
 }

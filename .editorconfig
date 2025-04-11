@@ -2,3 +2,144 @@ root = true
 
 [*]
 charset = utf-8
+
+[*.{fx,fxh,hlsl,hlsli}]
+indent_size = 4                            # 들여쓰기는 공백 4칸
+indent_style = space                       # 탭 대신 공백 사용
+trim_trailing_whitespace = true            # 줄 끝 공백 제거
+insert_final_newline = true                # 파일 끝에 빈 줄 삽입
+end_of_line = crlf                         # 줄바꿈은 Windows 스타일 (CRLF)
+# charset = latin1                           # 문자 인코딩은 Latin-1
+cpp_space_before_function_open_parenthesis = remove   # 함수명과 괄호 사이 공백 제거
+cpp_space_around_binary_operator = ignore              # 이항 연산자 주변 공백은 무시
+cpp_space_pointer_reference_alignment = ignore         # 포인터/참조 기호의 위치는 무시
+
+
+[*.{cpp,h,hpp,inl}]
+indent_size = 4
+indent_style = space
+trim_trailing_whitespace = true
+insert_final_newline = true
+end_of_line = crlf
+# charset = latin1
+# 들여쓰기 관련
+cpp_indent_braces = false                              # 중괄호는 들여쓰기 안 함
+cpp_indent_multi_line_relative_to = innermost_parenthesis   # 다중라인은 가장 안쪽 괄호 기준으로 들여쓰기
+cpp_indent_within_parentheses = indent                      # 괄호 안 내용도 들여쓰기
+cpp_indent_preserve_within_parentheses = false              # 괄호 내 원래 들여쓰기 유지하지 않음
+cpp_indent_case_contents = true                             # switch/case의 내용은 들여쓰기
+cpp_indent_case_labels = false                              # case 라벨은 들여쓰기 안 함
+cpp_indent_case_contents_when_block = true                  # block이 있을 때만 들여쓰기
+cpp_indent_lambda_braces_when_parameter = true              # 람다가 인자일 경우 중괄호 들여쓰기
+cpp_indent_preprocessor = one_left                          # 전처리문은 한 칸 왼쪽
+cpp_indent_access_specifiers = false                        # public/private 같은 키워드는 들여쓰기 안 함
+cpp_indent_namespace_contents = true                        # namespace 안의 내용은 들여쓰기
+cpp_indent_preserve_comments = true                         # 주석의 위치 유지
+# 중괄호 위치 관련
+cpp_new_line_before_open_brace_namespace = new_line        # namespace 중괄호는 새 줄에
+cpp_new_line_before_open_brace_type = new_line             # 클래스/구조체 중괄호 새 줄
+cpp_new_line_before_open_brace_function = new_line         # 함수 중괄호 새 줄
+cpp_new_line_before_open_brace_block = new_line            # 일반 블록 중괄호 새 줄
+cpp_new_line_before_open_brace_lambda = new_line           # 람다 중괄호도 새 줄
+cpp_new_line_scope_braces_on_separate_lines = true         # 여는/닫는 중괄호 각 줄에 따로
+cpp_new_line_close_brace_same_line_empty_type = true       # 내용 없는 타입 정의는 중괄호 같은 줄
+cpp_new_line_close_brace_same_line_empty_function = true   # 내용 없는 함수도 중괄호 같은 줄
+cpp_new_line_before_catch = true                           # catch 앞에 줄 바꿈
+cpp_new_line_before_else = true                            # else 앞에 줄 바꿈
+cpp_new_line_before_while_in_do_while = true               # do-while의 while 앞에 줄 바꿈
+#공백 관련
+cpp_space_before_function_open_parenthesis = remove            # 함수명과 괄호 사이 공백 제거
+cpp_space_within_parameter_list_parentheses = false            # 인자 괄호 내부 공백 없음
+cpp_space_between_empty_parameter_list_parentheses = false     # 빈 인자 괄호는 공백 없음
+cpp_space_after_keywords_in_control_flow_statements = true     # if, for 뒤에 공백 추가
+cpp_space_within_control_flow_statement_parentheses = false    # 제어문 괄호 안 공백 없음
+cpp_space_before_lambda_open_parenthesis = false               # 람다 괄호 앞 공백 없음
+cpp_space_within_cast_parentheses = false                      # 캐스트 괄호 안 공백 없음
+cpp_space_after_cast_close_parenthesis = false                 # 캐스트 괄호 뒤 공백 없음
+cpp_space_within_expression_parentheses = false                # 식 괄호 안 공백 없음
+cpp_space_before_initializer_list_open_brace = false           # 초기화 리스트 중괄호 앞 공백 없음
+cpp_space_within_initializer_list_braces = true                # 초기화 리스트 중괄호 안 공백 있음
+cpp_space_before_open_square_bracket = false                   # 대괄호 앞 공백 없음
+cpp_space_within_square_brackets = false                       # 대괄호 안 공백 없음
+cpp_space_before_empty_square_brackets = false                 # 빈 대괄호 앞 공백 없음
+cpp_space_between_empty_square_brackets = false                # 빈 대괄호 사이 공백 없음
+cpp_space_group_square_brackets = true                         # 대괄호 그룹을 같이 취급
+cpp_space_within_lambda_brackets = false                       # 람다 대괄호 안 공백 없음
+cpp_space_between_empty_lambda_brackets = false                # 빈 람다 대괄호 사이 공백 없음
+cpp_space_before_comma = false                                 # 쉼표 앞 공백 없음
+cpp_space_after_comma = true                                   # 쉼표 뒤 공백 있음
+cpp_space_remove_around_member_operators = true                # `.` 또는 `->` 앞뒤 공백 제거
+cpp_space_before_inheritance_colon = true                      # 상속 콜론 앞에 공백
+cpp_space_before_constructor_colon = true                      # 생성자 초기화 리스트 콜론 앞에 공백
+cpp_space_remove_before_semicolon = true                       # 세미콜론 앞 공백 제거
+cpp_space_after_semicolon = false                              # 세미콜론 뒤 공백 없음
+cpp_space_remove_around_unary_operator = false                 # 단항 연산자 주변 공백 제거 안 함
+cpp_space_around_binary_operator = ignore                      # 이항 연산자 공백은 무시
+cpp_space_around_assignment_operator = insert                  # 대입 연산자(=) 양쪽에 공백
+cpp_space_pointer_reference_alignment = ignore                 # 포인터/참조 기호 위치 무시
+cpp_space_around_ternary_operator = insert                     # 삼항 연산자 `? :` 양쪽에 공백
+# 코드블럭 관련
+cpp_wrap_preserve_blocks = one_liners                        # 한 줄로 작성된 블럭은 그대로 유지
+
+
+
+# indent_size = 4
+# indent_style = space
+# trim_trailing_whitespace = true
+# insert_final_newline = true
+# end_of_line = crlf
+# charset = latin1
+# cpp_indent_braces = false
+# cpp_indent_multi_line_relative_to = innermost_parenthesis
+# cpp_indent_within_parentheses = indent
+# cpp_indent_preserve_within_parentheses = false
+# cpp_indent_case_contents = true
+# cpp_indent_case_labels = false
+# cpp_indent_case_contents_when_block = true
+# cpp_indent_lambda_braces_when_parameter = true
+# cpp_indent_preprocessor = one_left
+# cpp_indent_access_specifiers = false
+# cpp_indent_namespace_contents = true
+# cpp_indent_preserve_comments = true
+# cpp_new_line_before_open_brace_namespace = new_line
+# cpp_new_line_before_open_brace_type = new_line
+# cpp_new_line_before_open_brace_function = new_line
+# cpp_new_line_before_open_brace_block = new_line
+# cpp_new_line_before_open_brace_lambda = new_line
+# cpp_new_line_scope_braces_on_separate_lines = true
+# cpp_new_line_close_brace_same_line_empty_type = true
+# cpp_new_line_close_brace_same_line_empty_function = true
+# cpp_new_line_before_catch = true
+# cpp_new_line_before_else = true
+# cpp_new_line_before_while_in_do_while = true
+# cpp_space_before_function_open_parenthesis = remove
+# cpp_space_within_parameter_list_parentheses = false
+# cpp_space_between_empty_parameter_list_parentheses = false
+# cpp_space_after_keywords_in_control_flow_statements = true
+# cpp_space_within_control_flow_statement_parentheses = false
+# cpp_space_before_lambda_open_parenthesis = false
+# cpp_space_within_cast_parentheses = false
+# cpp_space_after_cast_close_parenthesis = false
+# cpp_space_within_expression_parentheses = false
+# cpp_space_before_initializer_list_open_brace = false
+# cpp_space_within_initializer_list_braces = true
+# cpp_space_before_open_square_bracket = false
+# cpp_space_within_square_brackets = false
+# cpp_space_before_empty_square_brackets = false
+# cpp_space_between_empty_square_brackets = false
+# cpp_space_group_square_brackets = true
+# cpp_space_within_lambda_brackets = false
+# cpp_space_between_empty_lambda_brackets = false
+# cpp_space_before_comma = false
+# cpp_space_after_comma = true
+# cpp_space_remove_around_member_operators = true
+# cpp_space_before_inheritance_colon = true
+# cpp_space_before_constructor_colon = true
+# cpp_space_remove_before_semicolon = true
+# cpp_space_after_semicolon = false
+# cpp_space_remove_around_unary_operator = false
+# cpp_space_around_binary_operator = ignore
+# cpp_space_around_assignment_operator = insert
+# cpp_space_pointer_reference_alignment = ignore
+# cpp_space_around_ternary_operator = insert
+# cpp_wrap_preserve_blocks = one_liners

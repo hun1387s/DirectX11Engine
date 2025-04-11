@@ -7,5 +7,7 @@ VS_OUT VS_Std2D(VS_IN _in)
 
     output.vPosition = float4((_in.vPos * Scale.xyz) + Position.xyz, 1.f) + Position;
     output.vColor = _in.vColor;
+    output.vUV = _in.vUV;
+
     return output;
 }
