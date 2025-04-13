@@ -8,6 +8,7 @@
 CDevice::CDevice()
 	: MainWnd(nullptr)
 	, RenderResolution{}
+    , SamplerState{}
 {
     for (UINT i = 0; i < (UINT)CB_TYPE::END; ++i)
         ConstantBuffer[i] = nullptr;
@@ -88,6 +89,14 @@ int CDevice::init(HWND _hwnd, POINT _Resolution)
 		return E_FAIL;
 	}
 
+    // 필요한 샘플러 생성
+    if (FAILED(CreateSamplerState()))
+    {
+        // 실패시 종료
+        MessageBox(nullptr, L"SamplerState 생성 실패", L"SamplerState 생성 실패", MB_OK);
+        return E_FAIL;
+    }
+    
 
 	// 정상 종료
 	return S_OK;
@@ -202,4 +211,25 @@ int CDevice::CreateConstBuffer()
 	ConstantBuffer[(UINT)CB_TYPE::TRNSFORM]->Create(sizeof(Transform), CB_TYPE::TRNSFORM);
 
 	return S_OK;
+}
+
+int CDevice::CreateSamplerState()
+{
+    D3D11_SAMPLER_DESC Desc[2] = {};
+
+    Desc[0].AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    Desc[0].AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    Desc[0].AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    Desc[0].Filter = D3D11_FILTER_ANISOTROPIC;
+    _DEVICE->CreateSamplerState(Desc, SamplerState[0].GetAddressOf());
+    _CONTEXT->PSSetSamplers(0, 1, SamplerState[0].GetAddressOf());
+
+    Desc[1].AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+    Desc[1].AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+    Desc[1].AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    Desc[1].Filter = D3D11_FILTER_MIN_MAG_MIP_POINT;
+    _DEVICE->CreateSamplerState(Desc + 1, SamplerState[1].GetAddressOf());
+    _CONTEXT->PSSetSamplers(1, 1, SamplerState[1].GetAddressOf());
+
+	return 0;
 }

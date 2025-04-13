@@ -7,7 +7,8 @@ cbuffer TRANSFORM : register(b0)
     float4 Scale;
 }
 
-SamplerState g_Sam : register(s0);
+SamplerState g_Sam_0 : register(s0);
+SamplerState g_Sam_1 : register(s1);
 
 Texture2D g_tex : register(t0);
 

@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 class CConstBuffer;
 class CDevice
@@ -19,12 +19,18 @@ private:
 	ComPtr<ID3D11Texture2D>			DepthStencilTex;
 	ComPtr<ID3D11DepthStencilView>	DepthStencilView;
 
+    ComPtr<ID3D11SamplerState>      SamplerState[2];
+    //ComPtr<ID3D11RasterizerState>   RasterizerState[];
+    //ComPtr<ID3D11BlendState>        BlendState[];
+    //ComPtr<ID3D11DepthStencilState> DepthStencil[];
+
 	CConstBuffer*					ConstantBuffer[(UINT)CB_TYPE::END];
 
 private:
 	int CreateSwapChain();
 	int CreateView();
 	int CreateConstBuffer();
+    int CreateSamplerState();
 
 public:
 	int init(HWND _hwnd, POINT _Resolution);
