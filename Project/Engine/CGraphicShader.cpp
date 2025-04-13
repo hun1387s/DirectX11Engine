@@ -44,7 +44,7 @@ int CGraphicShader::CreateVertexShader(const wstring& filePath, const string& VS
 	}
 
 	// 정점 Layout 정보 생성
-	D3D11_INPUT_ELEMENT_DESC LayoutDesc[2] = {};
+	D3D11_INPUT_ELEMENT_DESC LayoutDesc[3] = {};
 	LayoutDesc[0].AlignedByteOffset = 0;
 	LayoutDesc[0].Format = DXGI_FORMAT_R32G32B32_FLOAT;
 	LayoutDesc[0].InputSlot = 0;
@@ -63,6 +63,7 @@ int CGraphicShader::CreateVertexShader(const wstring& filePath, const string& VS
 	LayoutDesc[1].SemanticName = "COLOR";
 
     LayoutDesc[2].AlignedByteOffset = 28;
+    //LayoutDesc[2].AlignedByteOffset = D3D11_APPEND_ALIGNED_ELEMENT;
     LayoutDesc[2].Format = DXGI_FORMAT_R32G32_FLOAT;
     LayoutDesc[2].InputSlot = 0;
     LayoutDesc[2].InputSlotClass = D3D11_INPUT_PER_VERTEX_DATA;
@@ -71,7 +72,7 @@ int CGraphicShader::CreateVertexShader(const wstring& filePath, const string& VS
     LayoutDesc[2].SemanticName = "TEXCOORD";
 
 
-	if (FAILED(_DEVICE->CreateInputLayout(LayoutDesc, 2,
+	if (FAILED(_DEVICE->CreateInputLayout(LayoutDesc, 3,
 		VS_Blob->GetBufferPointer(), VS_Blob->GetBufferSize(),
 		Layout.GetAddressOf())))
 	{

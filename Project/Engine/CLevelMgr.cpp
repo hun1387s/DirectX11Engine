@@ -36,7 +36,7 @@ void CLevelMgr::init()
 	//object->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"CircleMesh"));
     object->MeshRender()->SetMesh(CAssetMgr::GetInst()->FindAsset<CMesh>(L"RectMesh"));
 	object->MeshRender()->SetShader(CAssetMgr::GetInst()->FindAsset<CGraphicShader>(L"Std2DShader"));
-    object->MeshRender()->SetTexture(CAssetMgr::GetInst()->FindAsset<CTexture>(L"texture//A004.png"));
+    object->MeshRender()->SetTexture(CAssetMgr::GetInst()->FindAsset<CTexture>(L"texture\\A004.png"));
 
 	curLevel->AddObject(0, object);
 }
